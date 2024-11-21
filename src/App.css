@@ -1,38 +1,160 @@
 .App {
+  text-align: start;
+  height: 100vh; /* Make sure the App container fills the viewport */
+  overflow: hidden;
+}
+
+
+
+.Buttons {
+  display: flex;
+  flex-direction:column;
+  
+  justify-content: flex-start; 
+  padding-left: 70px; 
+  
+  margin-top: 20px;
+  background-color:#cee7f1;
+  
+}
+
+.Button {
+  padding: 10px 20px; 
+  margin-bottom:17px;
+  border: 2px solid #581c14; 
+  background-color: #581c14; 
+  color: #cee7f1; 
+  font-size: calc(16px + 1vmin); 
+  font-weight: 700; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius:10px;
+}
+
+
+
+.App-header {
+  background-color: #cee7f1;
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  font-size: calc(100px + 2vmin);
+  color:#581c14;
+  font-weight:900;
+  padding-left:70px;
+  padding-top:40px;
+}
+
+.App-body {
+  background-color: #cee7f1;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding-left:70px;
+  
+}
+
+
+.Modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.Modal {
+  background-color: #581c14;
+  padding: 20px;
+  border-radius: 50px;
+  width: 600px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.Form-group {
+  margin-bottom: 15px;
+}
+
+.Form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 900;
+  color: #cee7f1;
+}
+
+.Form-group input {
+  width: 95%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding-left:20px;
+}
+
+.Close-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #cee7f1;
+  
+  color: #581c14;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.Button2 {
+  
+  padding: 10px 20px; 
+  margin-bottom:17px;
+  border: 2px solid #581c14; 
+  background-color: #cee7f1; 
+  color: #581c14; 
+  font-size: calc(16px + 1vmin); 
+  font-weight: 700; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius:10px;
+}
+
+.Modal h3 {
+  font-size: calc(10px + 1vmin); 
+  font-style:italic;
+  color: #cee7f1; 
+  margin-bottom: 20px; 
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.SignInFields {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  
+  justify-content: flex-start;
+  gap: 20px; 
+  width: 100%;
+  padding: 20px 0;
 }
 
-.App-link {
-  color: #61dafb;
+.InputField {
+  width: 30%; 
+  padding: 15px; 
+  border: 2px solid #ddd;
+  border-radius: 8px; 
+  font-size: calc(16px + 1vmin); 
+  color: #581c14;
+  display:flex;
+  flex-direction:column;
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.FieldLabel {
+  font-size: calc(18px + 1vmin); 
+  font-weight: 700; 
+  color: #581c14; 
 }
