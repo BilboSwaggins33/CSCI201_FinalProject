@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import SignIn from './SignIn';
+import Profile from './Profile';
 
 function App() {
   const [isSigningUp, setIsSigningUp] = useState(false);
@@ -35,12 +36,14 @@ function App() {
                   <button className="Button" onClick={handleSignUpClick}>
                     Sign Up
                   </button>
+                  
                   </div>
                 {isSigningUp && <Modal onClose={handleCloseModal} />}
               </>
             }
           />
           <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </Router>
@@ -50,12 +53,30 @@ function App() {
 function Modal({ onClose }) {
 
   const navigate = useNavigate(); 
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    username: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const onSubmit = (e) => {
     e.preventDefault(); 
     const formValid = document.querySelector('form').checkValidity();
     if (formValid) {
       navigate('/sign-in');
+      
+      const jsonData = JSON.stringify(formData);
+      console.log('user registration data:', jsonData);
       onClose();
     } else {
       alert('Please fill out the fields correctly.');
@@ -69,23 +90,58 @@ function Modal({ onClose }) {
         <form onSubmit={onSubmit}>
           <div className="Form-group">
             <label>First Name:</label>
-            <input type="text" placeholder="First" required/>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              placeholder="First"
+              required
+            />
           </div>
           <div className="Form-group">
             <label>Last Name:</label>
-            <input type="text" placeholder="Last" required />
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              placeholder="Last"
+              required
+            />
           </div>
           <div className="Form-group">
             <label>Email:</label>
-            <input type="email" placeholder="Email" required />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email"
+              required
+            />
           </div>
           <div className="Form-group">
             <label>Username:</label>
-            <input type="text" placeholder="User" required />
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="User"
+              required
+            />
           </div>
           <div className="Form-group">
             <label>Password:</label>
-            <input type="password" placeholder="************"required  />
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="************"
+              required
+            />
           </div>
 
 
