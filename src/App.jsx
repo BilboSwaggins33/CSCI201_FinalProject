@@ -44,6 +44,7 @@ function App() {
           />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/profile" element={<Profile />} />
+          
         </Routes>
       </div>
     </Router>
@@ -54,11 +55,12 @@ function Modal({ onClose }) {
 
   const navigate = useNavigate(); 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
     username: '',
     password: '',
+    email: '',
+    fName: '',
+    lName: '',
+    university: '',
   });
 
   const handleChange = (e) => {
@@ -88,40 +90,7 @@ function Modal({ onClose }) {
       <div className="Modal">
         <h3>To create your account, enter your information below</h3>
         <form onSubmit={onSubmit}>
-          <div className="Form-group">
-            <label>First Name:</label>
-            <input
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              placeholder="First"
-              required
-            />
-          </div>
-          <div className="Form-group">
-            <label>Last Name:</label>
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              placeholder="Last"
-              required
-            />
-          </div>
-          <div className="Form-group">
-            <label>Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Email"
-              required
-            />
-          </div>
-          <div className="Form-group">
+        <div className="Form-group">
             <label>Username:</label>
             <input
               type="text"
@@ -143,6 +112,51 @@ function Modal({ onClose }) {
               required
             />
           </div>
+          <div className="Form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email"
+              required
+            />
+          </div>
+          <div className="Form-group">
+            <label>First Name:</label>
+            <input
+              type="text"
+              name="fName"
+              value={formData.firstName}
+              onChange={handleChange}
+              placeholder="First"
+              required
+            />
+          </div>
+          <div className="Form-group">
+            <label>Last Name:</label>
+            <input
+              type="text"
+              name="lName"
+              value={formData.lastName}
+              onChange={handleChange}
+              placeholder="Last"
+              required
+            />
+          </div>
+          <div className="Form-group">
+            <label>University:</label>
+            <input
+              type="text"
+              name="university"
+              value={formData.university}
+              onChange={handleChange}
+              placeholder="University"
+              required
+            />
+          </div>
+          
 
 
           <button className="Button2" type="submit">Submit</button>
