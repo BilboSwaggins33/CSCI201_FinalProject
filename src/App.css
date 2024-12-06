@@ -1,6 +1,6 @@
 .App {
   text-align: start;
-  height: 100vh; /* Make sure the App container fills the viewport */
+  height: 100vh; 
   overflow: hidden;
 }
 
@@ -47,6 +47,21 @@
   padding-top:40px;
 }
 
+.profile-header {
+  background-color: #cee7f1;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  font-size: calc(100px + 2vmin);
+  color:#581c14;
+  font-weight:900;
+  padding-top:30px;
+  padding-bottom:30px;
+  padding-left:50px;
+}
+
 .App-body {
   background-color: #cee7f1;
   min-height: 80vh;
@@ -68,7 +83,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1001;
 }
 
 .Modal {
@@ -123,6 +138,21 @@
   border-radius:10px;
 }
 
+.Button3 {
+  width:33.2%;
+  padding: 1px 5px; 
+  margin-bottom:5px;
+  margin-top:0px;
+  border: 2px solid #581c14; 
+  background-color: #581c14; 
+  color: #cee7f1; 
+  font-size: calc(16px + 1vmin); 
+  font-weight: 700; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius:10px;
+}
+
 .Modal h3 {
   font-size: calc(10px + 1vmin); 
   font-style:italic;
@@ -143,7 +173,7 @@
 
 .InputField {
   width: 30%; 
-  padding: 15px; 
+  padding: 12px; 
   border: 2px solid #ddd;
   border-radius: 8px; 
   font-size: calc(16px + 1vmin); 
@@ -157,4 +187,92 @@
   font-size: calc(18px + 1vmin); 
   font-weight: 700; 
   color: #581c14; 
+}
+
+
+
+.profile-content {
+  display: flex;
+  gap: 30px;
+  padding: 50px;
+  background-color:#e2edf2;
+  height:80vh;
+}
+
+.profile-info {
+  flex: 1;
+  text-align: center;
+}
+
+.profile-image-container {
+  position: relative;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid #581c14;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #581c14;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.Profile-username,
+.Profile-school {
+  font-size: 1rem;
+  color: #581c14;
+}
+
+.profile-details {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  margin-bottom: 30px;
+}
+
+.posts-section {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.post-card {
+  width: 150px;
+  height: 150px;
+  background-color: #d3d3d3;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
 }
