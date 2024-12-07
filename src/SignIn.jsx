@@ -7,6 +7,7 @@ function SignIn() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -32,7 +33,8 @@ function SignIn() {
     } catch (error) {
       console.error('Error during login:', error);
       setErrorMessage('Error.');
-    };
+    }
+};
     
     return (
         
@@ -69,7 +71,6 @@ function SignIn() {
             
         </div>
     );
-};
 }
 
 
