@@ -236,13 +236,10 @@
 .profile-details {
   flex: 2;
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
 }
 
 .edit-button {
-  width: 50%;
-  align-self: center;
   background-color: lightblue;
   color: white;
   border: none;
@@ -261,16 +258,13 @@
 
 .user-info {
   width: 50%;
-  padding: 20px 80px;
-  margin-bottom: 20px;
+  margin: 20px auto;
+  padding: 20px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
 }
 
 .user-info h2 {
@@ -281,17 +275,11 @@
 }
 
 .user-info p {
+  margin: 10px 0;
   font-size: 14px;
   color: #555;
   display: flex;
   justify-content: space-between;
-}
-
-.profile-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
 }
 
 .user-info span {
@@ -301,7 +289,6 @@
 
 .posts-section {
   display: flex;
-  justify-content: flex-start;
   gap: 20px;
   flex-wrap: wrap;
 }
