@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate,useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
 
 const Post = () => {
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
     let { postID } = useParams();
 
     const [postData, setPostData] = useState([]);
 
 
     useEffect(() => {
-         let thePost;
-    
+        let thePost;
+
         // const fetchPosts = async () => {
         //   try {
         //     const response = await axios.get('http://localhost:8080/post/${postID}');
@@ -25,25 +25,24 @@ const Post = () => {
 
 
         //FETCH VERSION
-    const fetchPosts = async () => {
-      try {
-        console.log(postID);
-        const response = await fetch(`http://localhost:8080/post/${postID}`,{
-            method: 'GET'
-        }
-        );
-        const data = await response.json();
-        
-        if (response.ok) {
-            console.log(data);
-          setPostData(data);
-        } 
-      } catch (error) {
-        console.error('Error during getting post:', error);
-      }
-    };
-    fetchPosts();
-    
+        const fetchPosts = async () => {
+            try {
+                console.log(postID);
+                const response = await fetch(`http://localhost:8080/post/${postID}`, {
+                    method: 'GET'
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    console.log(data);
+                    setPostData(data);
+                }
+            } catch (error) {
+                console.error('Error during getting post:', error);
+            }
+        };
+        fetchPosts();
+
         // Hardcoded test data
         // const thePost = 
         //   {
@@ -58,79 +57,79 @@ const Post = () => {
         //     ambiance: "Very good studyvibes",
         //   }
         // ;
-      }, []);
+    }, []);
 
-      function signOut() {
+    function signOut() {
         localStorage.removeItem("userID");
-        navigate('/'); 
-      }
-    
+        navigate('/');
+    }
 
 
-      return (
+
+    return (
         <div>
             <div style={{
-              marginTop: '0px',
-              width: '100%',
-              height: '150px',
-              overflow: 'hidden',
-              justifyContent: 'left',
-              alignItems: 'center',
-              backgroundColor: '#cee7f1',
-              boxSizing:' border-box'
+                marginTop: '0px',
+                width: '100%',
+                height: '150px',
+                overflow: 'hidden',
+                justifyContent: 'left',
+                alignItems: 'center',
+                backgroundColor: '#cee7f1',
+                boxSizing: ' border-box'
             }}>
-            <h1 style={{
-                marginLeft: '100px',
-                fontSize: '60px',
-                color: '#581c14'
-              }}>CAFE LA </h1> 
+                <h1 style={{
+                    marginLeft: '100px',
+                    fontSize: '60px',
+                    color: '#581c14'
+                }}>CAFE LA </h1>
                 <div style={{
                     position: 'absolute',
                     right: '100px',
                     top: '50px',
                     gap: '10px',
                 }}>
-                <Link to="/Profile">
-                            <button className="Button" style={{marginRight:'10px'}}>Map</button>
-                </Link>
-                <Link to="/Profile">
-                            <button className="Button" style={{marginRight:'10px'}}>Post</button>
-                </Link>
-                <Link to="/Profile">
-                            <button className="Button" style={{marginRight:'10px'}}>Profile</button>
-                </Link>
-                <Link to="/">
-                            <button className="Button" onClick= {() => signOut()}>Sign Out</button>
-                </Link>
-                
+                    <Link to="/Profile">
+                        <button className="Button" style={{ marginRight: '10px' }}>Map</button>
+                    </Link>
+                    <Link to="/Profile">
+                        <button className="Button" style={{ marginRight: '10px' }}>Post</button>
+                    </Link>
+                    <Link to="/Profile">
+                        <button className="Button" style={{ marginRight: '10px' }}>Profile</button>
+                    </Link>
+                    <Link to="/">
+                        <button className="Button" onClick={() => signOut()}>Sign Out</button>
+                    </Link>
+
                 </div>
             </div>
             <div style={{
-              display : 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
                 alignItems: 'center',
-                marginTop:'100px'
+                marginTop: '100px'
             }}>
 
-                <div style={{width: '500px', height:'500px' , backgroundColor: '#ffffff', overflow: 'hidden' ,marginRight:'200px'}}>
-                <img 
-                    src={postData.imageArray} 
-                    alt={postData.name}
-                    style={{ width: '100%' , height: '100%' }}
-                    onError={(e) => { e.target.src = 'https://i.ibb.co/HHgB7Cm/cafe-Image.webp'; }}
-                />
+                <div style={{ width: '500px', height: '500px', backgroundColor: '#ffffff', overflow: 'hidden', marginRight: '200px' }}>
+                    <img
+                        src={postData.imageArray}
+                        alt={postData.name}
+                        style={{ width: '100%', height: '100%' }}
+                        onError={(e) => { e.target.src = 'https://i.ibb.co/HHgB7Cm/cafe-Image.webp'; }}
+                    />
                 </div>
 
                 <div style={{
-                display : 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                 }}>
-                            <h2 style={{ margin: '10px 0' , fontSize: '50px'}}>{postData.name}</h2>
-                    <p style={{ margin: '5px 0', color: '#595959' , fontSize: '25px'}}>Address: {postData.address}</p>
-                    <p style={{ margin: '5px 0', fontSize: '18px' ,color: '#a3a2a2'}}>
+                    <h2 style={{ margin: '10px 0', fontSize: '50px' }}>{postData.name}</h2>
+                    <p style={{ margin: '5px 0', color: '#595959', fontSize: '25px' }}>Address: {postData.address}</p>
+                    <p style={{ margin: '5px 0', fontSize: '18px', color: '#a3a2a2' }}>
                         Rating: {postData.rating}/5 Stars
                     </p>
                     <p style={{ margin: '5px 0', fontSize: '18px', color: '#a3a2a2' }}>
@@ -148,6 +147,6 @@ const Post = () => {
                 </div>
             </div>
         </div>
-      );
+    );
 };
 export default Post;

@@ -4,42 +4,39 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react
 
 function SignIn() {
     const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState('');
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('');
 
-    try {
-      
-      const response = await fetch('http://localhost:8080/user/all', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:8080/user/authenticate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password }),
+            });
 
-      const data = await response.json();
+            const data = await response.json();
 
-      if (response.ok) {
-        
-        
-        localStorage.setItem('userInfo', JSON.stringify(data)); 
-        navigate('/home'); 
-      } else {
-      
-        setErrorMessage(data.message || 'Invalid username or password');
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-      setErrorMessage('Error.');
-    }
-};
-    
+            if (response.ok) {
+                localStorage.setItem('userInfo', JSON.stringify(data));
+                navigate('/home');
+            } else {
+                setErrorMessage(data.message || 'Invalid username or password');
+                alert(data.message || 'Inavlid username or password.');
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            setErrorMessage('Error. Invalid username or password');
+            alert("Invalid username or password.");
+        }
+    };
+
     return (
-        
+
         <div className="SignIn">
-             <header className="App-header">
+            <header className="App-header">
                 <p>CAFE LA</p>
             </header>
             <div className="App-body">
@@ -66,9 +63,9 @@ function SignIn() {
                         Submit
                     </button>
                 </form>
-                    
+
             </div>
-            
+
         </div>
     );
 }

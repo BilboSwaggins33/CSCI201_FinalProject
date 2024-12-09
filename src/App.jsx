@@ -7,12 +7,12 @@ import Profile from './Profile';
 import Home from './Home';
 import Post from './Post';
 import MapPage from './MapPage';
-
+import AddPost from './AddPost';
+import EditPost from './EditPost';
 
 
 function App() {
   const [isSigningUp, setIsSigningUp] = useState(false);
-
 
   const handleSignUpClick = () => {
     setIsSigningUp(true);
@@ -22,9 +22,12 @@ function App() {
     setIsSigningUp(false);
   };
 
+  
+
   return (
- 
+
     <Router>
+
       <div className="App">
         <Routes>
           <Route
@@ -41,6 +44,9 @@ function App() {
                   <button className="Button" onClick={handleSignUpClick}>
                     Sign Up
                   </button>
+                  <Link to="/home">
+                    <button className="Button">Guest Access</button>
+                  </Link>
                   
                   </div>
                 {isSigningUp && <Modal onClose={handleCloseModal} />}
@@ -52,23 +58,27 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/post/:postID" element={<Post />} />
+          <Route path="/addpost" element={<AddPost />} />
+          <Route path="/editpost/:postID" element={<EditPost />} />
 
-          
+
+
         </Routes>
       </div>
-    </Router>
+      </Router>
+
   );
 }
 
 function Modal({ onClose }) {
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
     email: '',
-    fName: '',
-    lName: '',
+    fname: '',
+    lname: '',
     university: '',
   });
 
@@ -81,13 +91,34 @@ function Modal({ onClose }) {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     const formValid = document.querySelector('form').checkValidity();
     if (formValid) {
-      navigate('/sign-in');
       
+
       const jsonData = JSON.stringify(formData);
       console.log('user registration data:', jsonData);
+      const registerUser = async () => {
+        try {
+          const response = await fetch('http://localhost:8080/user/register',{
+            method: 'Post',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonData,
+        }
+          );
+    
+          const data = await response.json();
+    
+          if (response.ok) {
+            console.log(data);
+          } 
+        } catch (error) {
+          console.log('Error during getting post:', error);
+        }
+      };
+      
+      registerUser();
+      navigate('/sign-in');
       onClose();
     } else {
       alert('Please fill out the fields correctly.');
@@ -99,7 +130,7 @@ function Modal({ onClose }) {
       <div className="Modal">
         <h3>To create your account, enter your information below</h3>
         <form onSubmit={onSubmit}>
-        <div className="Form-group">
+          <div className="Form-group">
             <label>Username:</label>
             <input
               type="text"
@@ -136,8 +167,8 @@ function Modal({ onClose }) {
             <label>First Name:</label>
             <input
               type="text"
-              name="fName"
-              value={formData.firstName}
+              name="fname"
+              value={formData.fname}
               onChange={handleChange}
               placeholder="First"
               required
@@ -147,8 +178,8 @@ function Modal({ onClose }) {
             <label>Last Name:</label>
             <input
               type="text"
-              name="lName"
-              value={formData.lastName}
+              name="lname"
+              value={formData.lname}
               onChange={handleChange}
               placeholder="Last"
               required
@@ -165,7 +196,7 @@ function Modal({ onClose }) {
               required
             />
           </div>
-          
+
 
 
           <button className="Button2" type="submit">Submit</button>
