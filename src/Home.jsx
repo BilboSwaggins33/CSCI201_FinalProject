@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+
 //import axios from 'axios';
 
 
@@ -9,8 +10,16 @@ const Home = () => {
 
 
   const userId = localStorage.getItem('userId');
+  const [isLoggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
+    if(!userId){
+      setLoggedIn(false);
+    }
+    else{
+      setLoggedIn(true);
+    }
+
     // if (!userId) {
     //   console.error("No userId found in localStorage. Redirect to sign-in page.");
     //   return;
@@ -150,19 +159,38 @@ const Home = () => {
              right: '100px',
              top: '50px',
              gap: '10px',
+             display: 'flex',
+  flexDirection: 'row'
         }}>
           <Link to="/map">
                     <button className="Button" style={{marginRight:'10px'}}>Map</button>
           </Link>
-          <Link to="/Profile">
+
+          {isLoggedIn ? (
+            <div>
+            <Link to="/Profile">
                     <button className="Button" style={{marginRight:'10px'}}>Post</button>
-          </Link>
-          <Link to="/Profile">
-                    <button className="Button" style={{marginRight:'10px'}}>Profile</button>
-          </Link>
-          <Link to="/">
-                    <button className="Button" onClick= {() => signOut()}>Sign Out</button>
-          </Link>
+            </Link>
+            
+            <Link to="/Profile">
+                      <button className="Button" style={{marginRight:'10px'}}>Profile</button>
+            </Link>
+            <Link to="/">
+                      <button className="Button" onClick= {() => signOut()}>Sign Out</button>
+            </Link>
+          </div>
+          ):(
+            <div>
+            <Link to="/sign-in">
+                    <button className="Button" style={{marginRight:'10px'}}>Sign In</button>
+            </Link>
+            
+            <Link to="/" >
+                      <button className="Button" style={{marginRight:'10px'}}>Sign Up</button>
+            </Link>
+          </div>
+          )}
+          
           
         </div>
 
