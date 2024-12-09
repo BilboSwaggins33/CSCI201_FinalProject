@@ -74,8 +74,8 @@ function Modal({ onClose }) {
     username: '',
     password: '',
     email: '',
-    fName: '',
-    lName: '',
+    fname: '',
+    lname: '',
     university: '',
   });
 
@@ -91,10 +91,31 @@ function Modal({ onClose }) {
     e.preventDefault();
     const formValid = document.querySelector('form').checkValidity();
     if (formValid) {
-      navigate('/sign-in');
+      
 
       const jsonData = JSON.stringify(formData);
       console.log('user registration data:', jsonData);
+      const registerUser = async () => {
+        try {
+          const response = await fetch('http://localhost:8080/user/register',{
+            method: 'Post',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonData,
+        }
+          );
+    
+          const data = await response.json();
+    
+          if (response.ok) {
+            console.log(data);
+          } 
+        } catch (error) {
+          console.log('Error during getting post:', error);
+        }
+      };
+      
+      registerUser();
+      navigate('/sign-in');
       onClose();
     } else {
       alert('Please fill out the fields correctly.');
@@ -143,8 +164,8 @@ function Modal({ onClose }) {
             <label>First Name:</label>
             <input
               type="text"
-              name="fName"
-              value={formData.firstName}
+              name="fname"
+              value={formData.fname}
               onChange={handleChange}
               placeholder="First"
               required
@@ -154,8 +175,8 @@ function Modal({ onClose }) {
             <label>Last Name:</label>
             <input
               type="text"
-              name="lName"
-              value={formData.lastName}
+              name="lname"
+              value={formData.lname}
               onChange={handleChange}
               placeholder="Last"
               required
