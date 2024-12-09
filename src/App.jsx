@@ -7,7 +7,7 @@ import Profile from './Profile';
 import Home from './Home';
 import Post from './Post';
 import MapPage from './MapPage';
-
+import AddPost from './AddPost';
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
   
 
   return (
- 
+
     <Router>
 
       <div className="App">
@@ -57,8 +57,9 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/post/:postID" element={<Post />} />
+          <Route path="/addpost" element={<AddPost />} />
 
-          
+
         </Routes>
       </div>
       </Router>
@@ -68,7 +69,7 @@ function App() {
 
 function Modal({ onClose }) {
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -87,11 +88,11 @@ function Modal({ onClose }) {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     const formValid = document.querySelector('form').checkValidity();
     if (formValid) {
       navigate('/sign-in');
-      
+
       const jsonData = JSON.stringify(formData);
       console.log('user registration data:', jsonData);
       onClose();
@@ -105,7 +106,7 @@ function Modal({ onClose }) {
       <div className="Modal">
         <h3>To create your account, enter your information below</h3>
         <form onSubmit={onSubmit}>
-        <div className="Form-group">
+          <div className="Form-group">
             <label>Username:</label>
             <input
               type="text"
@@ -171,7 +172,7 @@ function Modal({ onClose }) {
               required
             />
           </div>
-          
+
 
 
           <button className="Button2" type="submit">Submit</button>
