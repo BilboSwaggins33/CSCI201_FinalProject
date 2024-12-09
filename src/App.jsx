@@ -8,6 +8,7 @@ import Home from './Home';
 import Post from './Post';
 import MapPage from './MapPage';
 import AddPost from './AddPost';
+import EditPost from './EditPost';
 
 
 function App() {
@@ -58,6 +59,8 @@ function App() {
           <Route path="/map" element={<MapPage />} />
           <Route path="/post/:postID" element={<Post />} />
           <Route path="/addpost" element={<AddPost />} />
+          <Route path="/editpost/:postID" element={<EditPost />} />
+
 
 
         </Routes>

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import './AddPost.css';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import './EditPost.css';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
 
 
-const AddPost = ({ existingPost, onSave }) => {
+const EditPost = ({ existingPost, onSave }) => {
+    const { postID } = useParams();
 
   const [cafeName, setCafeName] = useState(existingPost?.cafeName || '');
   const [address, setAddress] = useState(existingPost?.address || '');
@@ -14,6 +15,76 @@ const AddPost = ({ existingPost, onSave }) => {
   const [description, setDescription] = useState(existingPost?.description || '');
   const [instructions, setInstructions] = useState(existingPost?.instructions || '');
   const [thoughts, setThoughts] = useState(existingPost?.thoughts || '');
+
+
+  useEffect(() => {
+
+    // const fetchPosts = async () => {
+    //   try {
+    //     const response = await axios.get('http://localhost:8080/post/${postID}');
+    //     if (response.status === 200) {
+    //       thePost = response.data; 
+    //     }
+    //   } catch (error) {
+    //     console.error('Error fetching posts:', error);
+    //     setErrorMessage('Error.');
+    //   }
+    // };
+
+
+    //FETCH VERSION
+    const fetchPosts = async () => {
+        try {
+            console.log(postID);
+            const response = await fetch(`http://localhost:8080/post/${postID}`, {
+                method: 'GET'
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log(data);
+                setCafeName(data.name || '');
+                setAddress(data.address || '');
+                setCoords(`Latitude: ${data.latitude}, Longitude: ${data.longitude}`);
+                setImages(data.imageArray || '');
+                setRating(data.rating || '');
+                setDescription(data.description || '');
+                setInstructions(data.directions || '');
+                setThoughts(data.ambiance || '');
+            }
+        } catch (error) {
+            console.error('Error during getting post:', error);
+        }
+    };
+    fetchPosts();
+
+    // const data = 
+    //       {
+    //         postID: 5,
+    //         name: "Stagger Coffee",
+    //         address: "1438 8th St, Los Angeles, USA",
+    //         rating: 4.6,
+    //         description: "Delicious lattes and friendly staff.",
+    //         views: 1000,
+    //         imageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
+    //         time: "2024-11-08T09:30:34",
+    //         ambiance: "Very good studyvibes",
+    //       }
+    //     ;
+        // setCafeName(data.name || '');
+        //         setAddress(data.address || '');
+        //         setCoords(`Latitude: ${data.latitude}, Longitude: ${data.longitude}`);
+        //         setImages([data.imageArray] || '[]');
+        //         setRating(data.rating || '');
+        //         setDescription(data.description || '');
+        //         setInstructions(data.directions || '');
+        //         setThoughts(data.ambiance || '');
+
+
+
+
+}, []);
+
 
 
   const handleCoordsChange = (event) => {
@@ -96,8 +167,8 @@ const AddPost = ({ existingPost, onSave }) => {
 
     console.log(body);
 
-    fetch("http://localhost:8080/post/add", {
-      method: "POST",
+    fetch(`http://localhost:8080/post/edit/${postID}`, {
+      method: "PUT",
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json"
@@ -108,7 +179,7 @@ const AddPost = ({ existingPost, onSave }) => {
     })
     .then((data) => {
       alert('Post saved successfully!');
-      window.location.href = "./home";
+       window.location.href = "/home";
     })
 
 
@@ -119,7 +190,7 @@ const AddPost = ({ existingPost, onSave }) => {
   return (
 
     <div className="add-post-container">
-      <h2>{existingPost ? 'Edit Post' : 'Add a New Post'}</h2>
+      <h2>{ 'Edit Post'}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Cafe Name *</label>
@@ -136,6 +207,7 @@ const AddPost = ({ existingPost, onSave }) => {
         <div className="form-group">
           <label>Address *</label>
           <input
+          value={address}
           type="text"
           onChange={(e) => setAddress(e.target.value)}
           placeholder="Address..."
@@ -178,14 +250,13 @@ const AddPost = ({ existingPost, onSave }) => {
 
         <div className="form-group">
           <label>Rating</label>
-          <select value={rating} onChange={(e) => setRating(e.target.value)}>
-            <option value="">1-10</option>
-            {[...Array(10)].map((_, i) => (
-              <option key={i} value={i + 1}>
-                {i + 1}
-              </option>
-            ))}
-          </select>
+          <input
+            type="text"
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+            placeholder="Type here..."
+
+          />
         </div>
 
 
@@ -232,4 +303,4 @@ const AddPost = ({ existingPost, onSave }) => {
 };
 
 
-export default AddPost;
+export default EditPost;
