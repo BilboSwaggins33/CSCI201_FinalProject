@@ -1,101 +1,113 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
-import Profile from './Profile';
+//import axios from 'axios';
+
 
 const Home = () => {
   const [postData, setPostData] = useState([]);
   const navigate = useNavigate(); 
 
 
-  //const userId = localStorage.getItem('userId');
+  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
     // if (!userId) {
     //   console.error("No userId found in localStorage. Redirect to sign-in page.");
-    //   // In a real app, you might redirect or handle the missing userId case here.
     //   return;
     // }
+    let allPosts;
 
     // const fetchPosts = async () => {
     //   try {
-    //     const response = await fetch('http://localhost:8080/post/all', {
-    //       method: 'GET',
-    //       headers: { 'Content-Type': 'application/json' },
-    //       body: JSON.stringify({ username, password }),
-    //     });
-  
-    //     const data = await response.json();
-  
-    //     if (response.ok) {
-    //       setPostData(data);
-    //     } 
+    //     const response = await axios.get('http://localhost:8080/post/all');
+        
+    //     if (response.status === 200) {
+    //       allPosts = response.data; 
+    //     }
     //   } catch (error) {
-    //     console.error('Error during login:', error);
+    //     console.error('Error fetching posts:', error);
     //     setErrorMessage('Error.');
     //   }
     // };
-      
- 
 
-    // Hardcoded test data
-    const testData = [
-      {
-        id: 1,
-        name: "Example Cafe",
-        address: "123 Main St, Somewhere, USA",
-        rating: 3.1,
-        description: "A great place to grab a coffee.",
-        views: 234,
-        ImageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
-        Time: "2024-08-05 09:30:34"
-      },
-      {
-        id: 2,
-        name: "About Time",
-        address: "456 Elm St, Anytown, USA",
-        rating: 4.2,
-        description: "Delicious lattes and friendly staff.",
-        views: 512,
-        ImageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
-        Time: "2024-12-09 09:30:34"
-      },
-      {
-        id: 3,
-        name: "MemoryLook",
-        address: "456 Elm St, Anytown, USA",
-        rating: 5,
-        description: "Delicious lattes and friendly staff.",
-        views: 300,
-        ImageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
-        Time: "2024-11-07 09:30:34"
-      },
-      {
-        id: 4,
-        name: "Olive X James",
-        address: "456 Elm St, Anytown, USA",
-        rating: 2,
-        description: "Delicious lattes and friendly staff.",
-        views: 800,
-        ImageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
-        Time: "2024-12-05 09:30:34"
-      },
-      {
-        id: 5,
-        name: "Stagger Coffee",
-        address: "456 Elm St, Anytown, USA",
-        rating: 4.6,
-        description: "Delicious lattes and friendly staff.",
-        views: 1000,
-        ImageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
-        Time: "2024-11-08 09:30:34"
+    //FETCH VERSION
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/post/all',{
+          method: 'GET'
       }
-    ];
-    const sortedData = [...testData].sort((a, b) => new Date(b.Time) - new Date(a.Time));
+        );
+  
+        const data = await response.json();
+  
+        if (response.ok) {
+          const sortedData = [...data].sort((a, b) => new Date(b.Time) - new Date(a.Time));
+          setPostData(sortedData);
+        } 
+      } catch (error) {
+        console.error('Error during getting post:', error);
+      }
+    };
+    fetchPosts();
 
 
-    setPostData(sortedData);
+    //Hardcoded test data
+    // const allPosts = [
+    //   {
+    //     postID: 1,
+    //     name: "Example Cafe",
+    //     address: "123 Main St, Somewhere, USA",
+    //     rating: 3.1,
+    //     description: "A great place to grab a coffee.",
+    //     views: 234,
+    //     imageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
+    //     time: "2024-08-05T09:30:34"
+    //   },
+    //   {
+    //     postID: 2,
+    //     name: "About Time",
+    //     address: "456 Elm St, Anytown, USA",
+    //     rating: 4.2,
+    //     description: "Delicious lattes and friendly staff.",
+    //     views: 512,
+    //     imageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
+    //     time: "2024-12-09T09:30:34"
+    //   },
+    //   {
+    //     postID: 3,
+    //     name: "MemoryLook",
+    //     address: "456 Elm St, Anytown, USA",
+    //     rating: 5,
+    //     description: "Delicious lattes and friendly staff.",
+    //     views: 300,
+    //     imageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
+    //     time: "2024-11-07T09:30:34"
+    //   },
+    //   {
+    //     postID: 4,
+    //     name: "Olive X James",
+    //     address: "456 Elm St, Anytown, USA",
+    //     rating: 2,
+    //     description: "Delicious lattes and friendly staff.",
+    //     views: 800,
+    //     imageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
+    //     time: "2024-12-05T09:30:34"
+    //   },
+    //   {
+    //     postID: 5,
+    //     name: "Stagger Coffee",
+    //     address: "1438 8th St, Los Angeles, USA",
+    //     rating: 4.6,
+    //     description: "Delicious lattes and friendly staff.",
+    //     views: 1000,
+    //     imageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
+    //     time: "2024-11-08T09:30:34"
+    //   }
+    // ];
+    // const sortedData = [...allPosts].sort((a, b) => new Date(b.Time) - new Date(a.Time));
+    // setPostData(sortedData);
 
-  }, []);//, [userId]
+  }, []);
 
   function eachPosts({ title, onDelete, onEdit }) {
     return (
@@ -110,6 +122,7 @@ const Home = () => {
   }
 
   function signOut() {
+    localStorage.removeItem("userID");
     navigate('/'); 
   }
 
@@ -138,11 +151,11 @@ const Home = () => {
              top: '50px',
              gap: '10px',
         }}>
-          <Link to="/Profile">
+          <Link to="/map">
                     <button className="Button" style={{marginRight:'10px'}}>Map</button>
           </Link>
           <Link to="/Profile">
-                    <button className="Button" style={{marginRight:'10px'}}>Post Spot</button>
+                    <button className="Button" style={{marginRight:'10px'}}>Post</button>
           </Link>
           <Link to="/Profile">
                     <button className="Button" style={{marginRight:'10px'}}>Profile</button>
@@ -168,43 +181,19 @@ const Home = () => {
         width: '100%'
       
       }}>
-                {/* <button
-                  className="px-5 py-2 w-full text-neutral-800 text-sm font-body rounded hover:bg-gray-200 text-left"
-                  onClick={() => {
-                    setSortMode("Recently posted");
-                    //setDropdownVisible(false);
-                    //let sortedPosts = posts.sort((a, b) => new Date(b.upload_time).getTime() - new Date(a.upload_time).getTime());
-                    let sortedPosts = postData.sort((a, b) => a.name.localeCompare(b.name));
-                    setPostData(sortedPosts);
-                  }}
-                >
-                  A-Z ASC
-                </button>
-                <button
-                  className="px-5 py-2 w-full text-neutral-800 text-sm font-body rounded hover:bg-gray-200 text-left"
-                  onClick={() => {
-                    setSortMode("Popular");
-                    //setDropdownVisible(false);
-                    //let sortedPosts = posts.sort((a, b) => (b.comment_count - a.comment_count));
-                    let sortedPosts = postData.sort((a, b) => b.name.localeCompare(a.name));
-                    setPostData(sortedPosts);
-                  }}
-                >
-                  A-Z DESC
-                </button> */}
           <p style={{ margin: '5px 0', fontSize: '17px', color: '#999' }}>
                 Sort By
               </p>
           <select
              style={{
-              border: '1px solid #ccc', // Light gray border
-              borderRadius: '5px', // Rounded corners
-              padding: '10px 20px', // Padding (equivalent to px-5 py-2)
-              backgroundColor: '#ffffff', // White background
-              color: '#555', // Neutral text color
-              fontSize: '14px', // Small text (equivalent to text-sm)
-              fontFamily: 'Arial, sans-serif', // Replace 'font-body' with a common font
-              cursor: 'pointer', // Pointer cursor for interactivity
+              border: '1px solid #ccc', 
+              borderRadius: '5px',
+              padding: '10px 20px', 
+              backgroundColor: '#ffffff',
+              color: '#555',
+              fontSize: '14px', 
+              fontFamily: 'Arial, sans-serif', 
+              cursor: 'pointer', 
             }}
             onChange={(e) => {
               console.log("Before sorting:", postData);
@@ -219,7 +208,7 @@ const Home = () => {
                 setPostData(sortedPosts); 
               }
               else if (selectedValue === "recentPost") {
-                const sortedPosts = [...postData].sort((a, b) => new Date(b.Time) - new Date(a.Time));
+                const sortedPosts = [...postData].sort((a, b) => new Date(b.time) - new Date(a.time));
                 console.log("After sorting:", sortedPosts);
                 setPostData(sortedPosts); 
               }
@@ -245,9 +234,7 @@ const Home = () => {
       
       <div style={{ display: 'flex', 
         flexDirection: 'column' ,
-        //flexWrap: 'nowrap', 
         alignItems: 'center',
-        //flexWrap: 'wrap', 
         gap: '20px', 
         marginTop: '20px', 
         height: '650px',
@@ -257,7 +244,7 @@ const Home = () => {
         }}>
         {postData.map(post => (
           <div 
-            key={post.id} 
+            key={post.postId} 
             style={{
               border: '1px solid #ccc',
               borderRadius: '12px',
@@ -272,38 +259,39 @@ const Home = () => {
           >
             <div style={{width: '170px', height:'170px' , backgroundColor: '#ffffff', overflow: 'hidden' }}>
               <img 
-                src={post.ImageArray} 
-                alt={post.name} 
+                src={post.imageArray} 
+                alt={post.name}
                 style={{ width: '100%' , height: '100%' }} 
+                onError={(e) => { e.target.src = 'https://i.ibb.co/HHgB7Cm/cafe-Image.webp'; }}
               />
             </div>
-            <div style={{ padding: '15px' }}>
+            <div style={{ padding: '15px' , width: '300px'}}>
               <h2 style={{ margin: '10px 0' }}>{post.name}</h2>
-              <p style={{ margin: '5px 0', color: '#555' }}>{post.address}</p>
+              <p style={{ margin: '5px 0', color: '#595959' }}>{post.address}</p>
               <p style={{ margin: '5px 0' }}>
                 <strong>Rating:</strong> {post.rating}
               </p>
-              <p style={{ margin: '5px 0', fontSize: '14px', color: '#999' }}>
+              <p style={{ margin: '5px 0', fontSize: '14px', color: '#a3a2a2' }}>
                 Views: {post.views}
               </p>
-              <button
-                  style={{
-                    alignItems: 'flex-end',
-                    backgroundColor: '#ffffff',
-                    border: 'none' ,
-                    cursor: 'pointer',
-                    color: 'black',
-                    borderRadius: '2px'
-                  }}
-                  onClick={() => {
-
-                    //setDropdownVisible(false);
-                    //let sortedPosts = posts.sort((a, b) => new Date(b.upload_time).getTime() - new Date(a.upload_time).getTime());
-                  }}
-                >
-                  Cafe Details
-                </button>
-
+              <Link to={`/post/${post.postId}`}>
+                <button
+                    style={{
+                      alignItems: 'flex-end',
+                      backgroundColor: '#ffffff',
+                      border: 'none' ,
+                      cursor: 'pointer',
+                      color: 'black',
+                      borderRadius: '2px'
+                    }}
+                    onClick={() => {
+                      // use axios to update post and increase view by one
+                      
+                    }}
+                  >
+                    Cafe Details
+                  </button>
+                </Link>
             </div>
           </div>
         ))}

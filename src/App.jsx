@@ -5,6 +5,10 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react
 import SignIn from './SignIn';
 import Profile from './Profile';
 import Home from './Home';
+import Post from './Post';
+import MapPage from './MapPage';
+
+
 
 function App() {
   const [isSigningUp, setIsSigningUp] = useState(false);
@@ -46,6 +50,9 @@ function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/map" element={<MapPage />} />
+          <Route path="/post/:postID" element={<Post />} />
+
           
         </Routes>
       </div>
