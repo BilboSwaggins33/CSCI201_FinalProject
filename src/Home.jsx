@@ -15,7 +15,7 @@ const Home = () => {
     //   console.error("No userId found in localStorage. Redirect to sign-in page.");
     //   return;
     // }
-    // let allPosts;
+    let allPosts;
 
     // const fetchPosts = async () => {
     //   try {
@@ -31,80 +31,81 @@ const Home = () => {
     // };
 
     //FETCH VERSION
-    // const fetchPosts = async () => {
-    //   try {
-    //     const response = await fetch('http://localhost:8080/post/all'
-    //     });
-  
-    //     const data = await response.json();
-  
-    //     if (response.ok) {
-    //       allPosts = data;
-    //     } 
-    //   } catch (error) {
-    //     console.error('Error during getting post:', error);
-    //     setErrorMessage('Error.');
-    //   }
-    // };
- 
-
-    // Hardcoded test data
-    const allPosts = [
-      {
-        PostID: 1,
-        Name: "Example Cafe",
-        Address: "123 Main St, Somewhere, USA",
-        Rating: 3.1,
-        description: "A great place to grab a coffee.",
-        Views: 234,
-        ImageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
-        Time: "2024-08-05 09:30:34"
-      },
-      {
-        PostID: 2,
-        Name: "About Time",
-        Address: "456 Elm St, Anytown, USA",
-        Rating: 4.2,
-        description: "Delicious lattes and friendly staff.",
-        Views: 512,
-        ImageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
-        Time: "2024-12-09 09:30:34"
-      },
-      {
-        PostID: 3,
-        Name: "MemoryLook",
-        Address: "456 Elm St, Anytown, USA",
-        Rating: 5,
-        description: "Delicious lattes and friendly staff.",
-        Views: 300,
-        ImageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
-        Time: "2024-11-07 09:30:34"
-      },
-      {
-        PostID: 4,
-        Name: "Olive X James",
-        Address: "456 Elm St, Anytown, USA",
-        Rating: 2,
-        description: "Delicious lattes and friendly staff.",
-        Views: 800,
-        ImageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
-        Time: "2024-12-05 09:30:34"
-      },
-      {
-        PostID: 5,
-        Name: "Stagger Coffee",
-        Address: "456 Elm St, Anytown, USA",
-        Rating: 4.6,
-        description: "Delicious lattes and friendly staff.",
-        Views: 1000,
-        ImageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
-        Time: "2024-11-08 09:30:34"
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/post/all',{
+          method: 'GET'
       }
-    ];
-    const sortedData = [...allPosts].sort((a, b) => new Date(b.Time) - new Date(a.Time));
+        );
+  
+        const data = await response.json();
+  
+        if (response.ok) {
+          const sortedData = [...data].sort((a, b) => new Date(b.Time) - new Date(a.Time));
+          setPostData(sortedData);
+        } 
+      } catch (error) {
+        console.error('Error during getting post:', error);
+      }
+    };
+    fetchPosts();
 
 
-    setPostData(sortedData);
+    //Hardcoded test data
+    // const allPosts = [
+    //   {
+    //     postID: 1,
+    //     name: "Example Cafe",
+    //     address: "123 Main St, Somewhere, USA",
+    //     rating: 3.1,
+    //     description: "A great place to grab a coffee.",
+    //     views: 234,
+    //     imageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
+    //     time: "2024-08-05T09:30:34"
+    //   },
+    //   {
+    //     postID: 2,
+    //     name: "About Time",
+    //     address: "456 Elm St, Anytown, USA",
+    //     rating: 4.2,
+    //     description: "Delicious lattes and friendly staff.",
+    //     views: 512,
+    //     imageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
+    //     time: "2024-12-09T09:30:34"
+    //   },
+    //   {
+    //     postID: 3,
+    //     name: "MemoryLook",
+    //     address: "456 Elm St, Anytown, USA",
+    //     rating: 5,
+    //     description: "Delicious lattes and friendly staff.",
+    //     views: 300,
+    //     imageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
+    //     time: "2024-11-07T09:30:34"
+    //   },
+    //   {
+    //     postID: 4,
+    //     name: "Olive X James",
+    //     address: "456 Elm St, Anytown, USA",
+    //     rating: 2,
+    //     description: "Delicious lattes and friendly staff.",
+    //     views: 800,
+    //     imageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
+    //     time: "2024-12-05T09:30:34"
+    //   },
+    //   {
+    //     postID: 5,
+    //     name: "Stagger Coffee",
+    //     address: "1438 8th St, Los Angeles, USA",
+    //     rating: 4.6,
+    //     description: "Delicious lattes and friendly staff.",
+    //     views: 1000,
+    //     imageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
+    //     time: "2024-11-08T09:30:34"
+    //   }
+    // ];
+    // const sortedData = [...allPosts].sort((a, b) => new Date(b.Time) - new Date(a.Time));
+    // setPostData(sortedData);
 
   }, []);
 
@@ -150,7 +151,7 @@ const Home = () => {
              top: '50px',
              gap: '10px',
         }}>
-          <Link to="/Profile">
+          <Link to="/map">
                     <button className="Button" style={{marginRight:'10px'}}>Map</button>
           </Link>
           <Link to="/Profile">
@@ -198,26 +199,26 @@ const Home = () => {
               console.log("Before sorting:", postData);
               const selectedValue = e.target.value;
               if (selectedValue === "AZ") {
-                const sortedPosts = [...postData].sort((a, b) => a.Name.localeCompare(b.Name));
+                const sortedPosts = [...postData].sort((a, b) => a.name.localeCompare(b.name));
                 console.log("After sorting:", sortedPosts);
                 setPostData(sortedPosts); 
               } else if (selectedValue === "ZA") {
-                const sortedPosts = [...postData].sort((a, b) => b.Name.localeCompare(a.Name));
+                const sortedPosts = [...postData].sort((a, b) => b.name.localeCompare(a.name));
                 console.log("After sorting:", sortedPosts);
                 setPostData(sortedPosts); 
               }
               else if (selectedValue === "recentPost") {
-                const sortedPosts = [...postData].sort((a, b) => new Date(b.Time) - new Date(a.Time));
+                const sortedPosts = [...postData].sort((a, b) => new Date(b.time) - new Date(a.time));
                 console.log("After sorting:", sortedPosts);
                 setPostData(sortedPosts); 
               }
               else if (selectedValue === "highRated") {
-                const sortedPosts = [...postData].sort((a, b) => b.Rating - a.Rating);
+                const sortedPosts = [...postData].sort((a, b) => b.rating - a.rating);
                 console.log("After sorting:", sortedPosts);
                 setPostData(sortedPosts); 
               }
               else if (selectedValue === "popular") {
-                const sortedPosts = [...postData].sort((a, b) => b.Views - a.Views);
+                const sortedPosts = [...postData].sort((a, b) => b.views - a.views);
                 console.log("After sorting:", sortedPosts);
                 setPostData(sortedPosts); 
               }
@@ -243,7 +244,7 @@ const Home = () => {
         }}>
         {postData.map(post => (
           <div 
-            key={post.PostID} 
+            key={post.postId} 
             style={{
               border: '1px solid #ccc',
               borderRadius: '12px',
@@ -258,21 +259,22 @@ const Home = () => {
           >
             <div style={{width: '170px', height:'170px' , backgroundColor: '#ffffff', overflow: 'hidden' }}>
               <img 
-                src={post.ImageArray} 
-                alt={post.Name} 
+                src={post.imageArray} 
+                alt={post.name}
                 style={{ width: '100%' , height: '100%' }} 
+                onError={(e) => { e.target.src = 'https://i.ibb.co/HHgB7Cm/cafe-Image.webp'; }}
               />
             </div>
-            <div style={{ padding: '15px' }}>
-              <h2 style={{ margin: '10px 0' }}>{post.Name}</h2>
-              <p style={{ margin: '5px 0', color: '#595959' }}>{post.Address}</p>
+            <div style={{ padding: '15px' , width: '300px'}}>
+              <h2 style={{ margin: '10px 0' }}>{post.name}</h2>
+              <p style={{ margin: '5px 0', color: '#595959' }}>{post.address}</p>
               <p style={{ margin: '5px 0' }}>
-                <strong>Rating:</strong> {post.Rating}
+                <strong>Rating:</strong> {post.rating}
               </p>
               <p style={{ margin: '5px 0', fontSize: '14px', color: '#a3a2a2' }}>
-                Views: {post.Views}
+                Views: {post.views}
               </p>
-              <Link to={`/post/${post.PostID}`}>
+              <Link to={`/post/${post.postId}`}>
                 <button
                     style={{
                       alignItems: 'flex-end',

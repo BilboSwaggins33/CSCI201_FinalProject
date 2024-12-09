@@ -9,11 +9,7 @@ const Post = () => {
 
 
     useEffect(() => {
-        // if (!userId) {
-        //   console.error("No userId found in localStorage. Redirect to sign-in page.");
-        //   return;
-        // }
-        // let thePost;
+         let thePost;
     
         // const fetchPosts = async () => {
         //   try {
@@ -29,42 +25,43 @@ const Post = () => {
 
 
         //FETCH VERSION
-    // const fetchPosts = async () => {
-    //   try {
-    //     const response = await fetch('http://localhost:8080/post/${postID}'
-    //     });
-  
-    //     const data = await response.json();
-  
-    //     if (response.ok) {
-    //       thePost = data;
-    //     } 
-    //   } catch (error) {
-    //     console.error('Error during getting post:', error);
-    //     setErrorMessage('Error.');
-    //   }
-    // };
-     
+    const fetchPosts = async () => {
+      try {
+        console.log(postID);
+        const response = await fetch(`http://localhost:8080/post/${postID}`,{
+            method: 'GET'
+        }
+        );
+        const data = await response.json();
+        
+        if (response.ok) {
+            console.log(data);
+          setPostData(data);
+        } 
+      } catch (error) {
+        console.error('Error during getting post:', error);
+      }
+    };
+    fetchPosts();
     
         // Hardcoded test data
-        const thePost = 
-          {
-            PostID: 5,
-            Name: "Stagger Coffee",
-            Address: "1438 8th St, Los Angeles, USA",
-            Rating: 4.6,
-            Description: "Delicious lattes and friendly staff. Must get Matcha ",
-            Views: 1000,
-            ImageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
-            Time: "2024-11-08 09:30:34",
-            Ambiance: "Very good studyvibes",
-          }
-        ;
-        setPostData(thePost);
+        // const thePost = 
+        //   {
+        //     postID: 5,
+        //     name: "Stagger Coffee",
+        //     address: "1438 8th St, Los Angeles, USA",
+        //     rating: 4.6,
+        //     description: "Delicious lattes and friendly staff.",
+        //     views: 1000,
+        //     imageArray: "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
+        //     time: "2024-11-08T09:30:34",
+        //     ambiance: "Very good studyvibes",
+        //   }
+        // ;
       }, []);
 
       function signOut() {
-
+        localStorage.removeItem("userID");
         navigate('/'); 
       }
     
@@ -97,7 +94,7 @@ const Post = () => {
                             <button className="Button" style={{marginRight:'10px'}}>Map</button>
                 </Link>
                 <Link to="/Profile">
-                            <button className="Button" style={{marginRight:'10px'}}>Post Spot</button>
+                            <button className="Button" style={{marginRight:'10px'}}>Post</button>
                 </Link>
                 <Link to="/Profile">
                             <button className="Button" style={{marginRight:'10px'}}>Profile</button>
@@ -118,9 +115,10 @@ const Post = () => {
 
                 <div style={{width: '500px', height:'500px' , backgroundColor: '#ffffff', overflow: 'hidden' ,marginRight:'200px'}}>
                 <img 
-                    src={postData.ImageArray} 
-                    alt={postData.Name} 
-                    style={{ width: '100%' , height: '100%' }} 
+                    src={postData.imageArray} 
+                    alt={postData.name}
+                    style={{ width: '100%' , height: '100%' }}
+                    onError={(e) => { e.target.src = 'https://i.ibb.co/HHgB7Cm/cafe-Image.webp'; }}
                 />
                 </div>
 
@@ -130,19 +128,19 @@ const Post = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 }}>
-                            <h2 style={{ margin: '10px 0' , fontSize: '50px'}}>{postData.Name}</h2>
-                    <p style={{ margin: '5px 0', color: '#595959' , fontSize: '25px'}}>Address: {postData.Address}</p>
+                            <h2 style={{ margin: '10px 0' , fontSize: '50px'}}>{postData.name}</h2>
+                    <p style={{ margin: '5px 0', color: '#595959' , fontSize: '25px'}}>Address: {postData.address}</p>
                     <p style={{ margin: '5px 0', fontSize: '18px' ,color: '#a3a2a2'}}>
-                        Rating: {postData.Rating}/5 Stars
+                        Rating: {postData.rating}/5 Stars
                     </p>
                     <p style={{ margin: '5px 0', fontSize: '18px', color: '#a3a2a2' }}>
-                        Views: {postData.Views} people
+                        Views: {postData.views} people
                     </p>
                     <p style={{ margin: '5px 0', fontSize: '16px', color: 'black' }}>
-                        Description: {postData.Description}
+                        Description: {postData.description}
                     </p>
                     <p style={{ margin: '5px 0', fontSize: '16px', color: 'black' }}>
-                        Ambience: {postData.Ambiance}
+                        Ambience: {postData.ambiance}
                     </p>
 
 
