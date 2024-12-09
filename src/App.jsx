@@ -13,7 +13,6 @@ import MapPage from './MapPage';
 function App() {
   const [isSigningUp, setIsSigningUp] = useState(false);
 
-
   const handleSignUpClick = () => {
     setIsSigningUp(true);
   };
@@ -22,9 +21,12 @@ function App() {
     setIsSigningUp(false);
   };
 
+  
+
   return (
  
     <Router>
+
       <div className="App">
         <Routes>
           <Route
@@ -41,6 +43,9 @@ function App() {
                   <button className="Button" onClick={handleSignUpClick}>
                     Sign Up
                   </button>
+                  <Link to="/home">
+                    <button className="Button">Guest Access</button>
+                  </Link>
                   
                   </div>
                 {isSigningUp && <Modal onClose={handleCloseModal} />}
@@ -56,7 +61,8 @@ function App() {
           
         </Routes>
       </div>
-    </Router>
+      </Router>
+
   );
 }
 
