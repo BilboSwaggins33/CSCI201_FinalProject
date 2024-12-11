@@ -16,7 +16,8 @@ function Profile() {
 
     const fetchUserData = async () => {
       // NOTE: Remove hardcoded id in the future
-      const userId = 1;
+      const userId = localStorage.getItem('userId');
+	  console.log("id:" +userId);
       // NOTE: For now, this code fetches and stores in localStorage
       // Will remove in the future once login functionality is finished
       fetch(`http://localhost:8080/user/id/${userId}`, {

@@ -19,7 +19,7 @@ function MapPage() {
       <div className='TopBar'>
       
         <a href="/home">Home</a>
-        <a href="/post">Post</a>
+        <a href="/addpost">Post</a>
         <a href="/profile">Profile</a>
         <a className='active' href="#map">Map</a>
        <div className='Search'>
