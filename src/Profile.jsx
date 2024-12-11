@@ -116,6 +116,7 @@ function Profile() {
             {posts.map((post, idx) => (
               <PostCard
                 key={post.postId}
+                postId={post.postId}
                 title={post.name}
                 onDelete={() => handleDelete(post.postId)}
                 onEdit={() => { handleEditClick(post.postId) }}
@@ -132,8 +133,9 @@ function Profile() {
   );
 }
 
-function PostCard({ title, onDelete, onEdit }) {
+function PostCard({postId, title, onDelete, onEdit }) {
   return (
+    <Link to={`/post/${postId}`}>
     <div className="post-card">
       <p>{title}</p>
       <div className="post-actions">
@@ -141,6 +143,7 @@ function PostCard({ title, onDelete, onEdit }) {
         <button >✎</button>
       </div>
     </div>
+    </Link>
   );
 }
 

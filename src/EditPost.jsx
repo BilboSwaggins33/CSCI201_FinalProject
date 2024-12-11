@@ -46,7 +46,7 @@ const EditPost = ({ existingPost, onSave }) => {
                 setCafeName(data.name || '');
                 setAddress(data.address || '');
                 setCoords(`Latitude: ${data.latitude}, Longitude: ${data.longitude}`);
-                setImages(data.imageArray || '');
+                setImages([data.imageArray] || '');
                 setRating(data.rating || '');
                 setDescription(data.description || '');
                 setInstructions(data.directions || '');
