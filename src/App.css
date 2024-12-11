@@ -7,12 +7,27 @@
 .Buttons {
   display: flex;
   flex-direction: column;
-
-  justify-content: flex-start;
+  justify-content: center;
   padding-left: 70px;
-
   margin-top: 20px;
   background-color: #cee7f1;
+  
+}
+
+.main{
+  justify-content: center;
+  margin-left: 37%;
+  margin-top: 3%;
+}
+
+.rowButton {
+  display: flex;
+  justify-content: center;
+  gap: 20px; 
+}
+
+#guest{
+  margin-left: 15%;
 }
 
 .Button {
@@ -28,6 +43,16 @@
     background-color 0.3s ease,
     color 0.3s ease;
   border-radius: 10px;
+  flex-direction: center;
+  justify-content: center;
+  align-items: center;
+}
+
+#sign
+{
+  align-items: center;
+  justify-content: center;
+ 
 }
 
 .App-header {
@@ -35,14 +60,47 @@
   min-height: 20vh;
   display: flex;
   flex-direction: column;
-  align-items: start;
-  justify-content: start;
+  align-items: center;
+  justify-content: center;
   font-size: calc(100px + 2vmin);
   color: #581c14;
   font-weight: 900;
-  padding-left: 70px;
-  padding-top: 40px;
+  padding-top: 10%;
+  text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
 }
+
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: "Courier New", Courier, monospace; 
+  font-size: calc(100px + 2vmin);
+  font-weight: 1000;
+  color: #581c14;
+  border-right: 4px solid #581c14; 
+  animation: typing 3s steps(10) forwards, blink 0.5s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 35%;
+  }
+}
+
+@keyframes blink {
+  from {
+    border-color: #581c14;
+  }
+  to {
+    border-color: transparent;
+  }
+}
+
+
 
 .profile-header {
   background-color: #cee7f1;
