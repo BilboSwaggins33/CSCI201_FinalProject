@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
-
+import '../App.css';
 //import axios from 'axios';
 
 
@@ -144,25 +144,32 @@ const Home = () => {
       <div style={{
         marginTop: '0px',
         width: '100%',
-        height: '150px',
+        height: '120px',
         overflow: 'hidden',
         justifyContent: 'left',
         alignItems: 'center',
         backgroundColor: '#cee7f1',
         boxSizing: ' border-box'
       }}>
-        <h1 style={{
-          marginLeft: '100px',
-          fontSize: '60px',
-          color: '#581c14'
-        }}>CAFE LA </h1>
+		
+		<div class="typewriter" 	  style={{
+				marginLeft: '70px',
+				marginTop: '30px',
+		        fontSize: '60px', 
+		        maxWidth: 'fit-content',
+		        whiteSpace: 'nowrap',
+		        borderRight: '2px solid #581c14', 
+		        paddingRight: '10px', 
+		      }}>
+           <p>CAFE LA</p>
+         </div>
         <div style={{
             position: 'absolute',
              right: '100px',
-             top: '50px',
+             top: '40px',
              gap: '10px',
              display: 'flex',
-  flexDirection: 'row'
+			flexDirection: 'row'
         }}>
           <Link to="/map">
             <button className="Button" style={{ marginRight: '10px' }}>Map</button>

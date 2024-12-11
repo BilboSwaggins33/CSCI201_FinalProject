@@ -51,10 +51,11 @@ function App() {
                       <button className="Button" id="up" onClick={handleSignUpClick}>
                         Sign Up
                       </button>
+					  <Link to="/home">
+                        <button className="Button" id="guest">Guest Access</button>
+                      </Link>
                     </div>
-                    <Link to="/home">
-                      <button className="Button" id="guest">Guest Access</button>
-                    </Link>
+                    
                   </div>
                   </div>
                 {isSigningUp && <Moda onClose={handleCloseModal} />}

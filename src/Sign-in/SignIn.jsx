@@ -42,32 +42,39 @@ function SignIn() {
 
         <div className="SignIn">
             <header className="App-header">
-                <p>CAFE LA</p>
+				<div class="typewriter">
+                   <p>CAFE LA</p>
+                </div>
             </header>
             <div className="App-body">
-                <form className="SignInFields" onSubmit={handleSubmit}>
-                    <label className="FieldLabel">Username:</label>
-                    <input
-                        className="InputField"
-                        type="text"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                    <label className="FieldLabel">Password:</label>
-                    <input
-                        className="InputField"
-                        type="password"
-                        placeholder="************"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <button className="Button3" type="submit">
-                        Submit
-                    </button>
-                </form>
+				<form className="SignInFields" onSubmit={handleSubmit}>
+				  <div className="FieldRow">
+				    <label className="FieldLabel">Username:</label>
+				    <input
+				      className="InputField"
+				      type="text"
+				      placeholder="Username"
+				      value={username}
+				      onChange={(e) => setUsername(e.target.value)}
+				      required
+				    />
+				  </div>
+				  <div className="FieldRow">
+				    <label className="FieldLabel">Password:</label>
+				    <input
+				      className="InputField"
+				      type="password"
+				      placeholder="******"
+				      value={password}
+				      onChange={(e) => setPassword(e.target.value)}
+				      required
+				    />
+				  </div>
+				  <button className="Button3" type="submit">
+				    Sign In
+				  </button>
+				</form>
+
 
             </div>
 
