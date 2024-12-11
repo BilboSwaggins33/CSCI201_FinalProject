@@ -2,6 +2,7 @@
   text-align: start;
   height: 100vh;
   overflow: hidden;
+  
 }
 
 .Buttons {
@@ -16,36 +17,33 @@
 
 .main{
   justify-content: center;
-  margin-left: 37%;
-  margin-top: 3%;
+  margin-left: 40%;
+  margin-top: 7%;
 }
 
 .rowButton {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   gap: 20px; 
+  align-items: center;
 }
 
 #guest{
-  margin-left: 15%;
+  margin: 0;
 }
 
 .Button {
-  padding: 10px 20px;
-  margin-bottom: 17px;
+   padding: 10px 20px;
   border: 2px solid #581c14;
   background-color: #581c14;
   color: #cee7f1;
   font-size: calc(16px + 1vmin);
   font-weight: 700;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 10px;
-  flex-direction: center;
-  justify-content: center;
-  align-items: center;
+  width: 200px;
+  text-align: center; 
 }
 
 #sign
@@ -193,10 +191,10 @@
 }
 
 .Button3 {
-  width: 33.2%;
-  padding: 1px 5px;
+  width: 13%;
+  padding: 10px 20px;
   margin-bottom: 5px;
-  margin-top: 0px;
+  margin-top: 30px;
   border: 2px solid #581c14;
   background-color: #581c14;
   color: #cee7f1;
@@ -220,28 +218,38 @@
 .SignInFields {
   display: flex;
   flex-direction: column;
-
+  align-items: center;
   justify-content: flex-start;
   gap: 20px;
   width: 100%;
-  padding: 20px 0;
+  height: 100vh;
+  padding-top: 10vh;
 }
 
+.FieldRow {
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  gap: 10px;
+  width: 100%;
+}
+
+
 .InputField {
-  width: 30%;
+  width: 23%; 
   padding: 12px;
   border: 2px solid #ddd;
   border-radius: 8px;
   font-size: calc(16px + 1vmin);
   color: #581c14;
-  display: flex;
-  flex-direction: column;
 }
 
 .FieldLabel {
   font-size: calc(18px + 1vmin);
   font-weight: 700;
   color: #581c14;
+  width: 150px; 
+  text-align: right; 
 }
 
 .profile-content {
@@ -381,4 +389,19 @@
   border: none;
   cursor: pointer;
   font-size: 1.5rem;
+}
+
+.menu-button button{
+	padding: 10px 20px;
+  border: 2px solid #581c14;
+  background-color: #581c14;
+  color: #cee7f1;
+  font-size: calc(16px + 1vmin);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 10px;
+  width: 200px;
+  text-align: center; 
+	margin-right: 10px;
 }
