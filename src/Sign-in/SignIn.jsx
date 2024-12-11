@@ -21,7 +21,11 @@ function SignIn() {
             const data = await response.json();
 
             if (response.ok) {
-                localStorage.setItem('userInfo', JSON.stringify(data));
+				const user = JSON.stringify(data);
+				const userObject = JSON.parse(user);
+                localStorage.setItem('userInfo', user);
+				console.log("user: " + user);
+				localStorage.setItem('userId', userObject.id);
                 navigate('/home');
             } else {
                 setErrorMessage(data.message || 'Invalid username or password');

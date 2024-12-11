@@ -89,10 +89,10 @@ const Post = () => {
                     top: '50px',
                     gap: '10px',
                 }}>
-                    <Link to="/Profile">
+                    <Link to="/map">
                         <button className="Button" style={{ marginRight: '10px' }}>Map</button>
                     </Link>
-                    <Link to="/Profile">
+                    <Link to="/addpost">
                         <button className="Button" style={{ marginRight: '10px' }}>Post</button>
                     </Link>
                     <Link to="/Profile">

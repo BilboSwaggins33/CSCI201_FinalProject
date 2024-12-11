@@ -132,6 +132,7 @@ const Home = () => {
 
   function signOut() {
     localStorage.removeItem("userID");
+	localStorage.removeItem("userId");
     localStorage.removeItem("userInfo");
     navigate('/');
   }
