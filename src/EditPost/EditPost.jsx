@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './EditPost.css';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { initializeApp } from "firebase/app";
 
 
 const EditPost = ({ existingPost, onSave }) => {
@@ -10,12 +12,26 @@ const EditPost = ({ existingPost, onSave }) => {
   const [address, setAddress] = useState(existingPost?.address || '');
   const [coords, setCoords] = useState(existingPost?.coords || '');
   const [currentLocation, setCurrentLocation] = useState(null);
-  const [images, setImages] = useState(existingPost?.images || []);
+  const [images, setImages] = useState(existingPost?.images || '');
   const [rating, setRating] = useState(existingPost?.rating || '');
   const [description, setDescription] = useState(existingPost?.description || '');
   const [instructions, setInstructions] = useState(existingPost?.instructions || '');
   const [thoughts, setThoughts] = useState(existingPost?.thoughts || '');
+  const userId = localStorage.getItem('userId');
+  const [views, setViews] = useState(existingPost?.views || '');
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyCA3chR_hV2CFfeLKsASOlLZoVkqfX-O4g",
+    authDomain: "cafela-6faa4.firebaseapp.com",
+    projectId: "cafela-6faa4",
+    storageBucket: "cafela-6faa4.firebasestorage.app",
+    messagingSenderId: "670270706673",
+    appId: "1:670270706673:web:10bdd53e67856580af6a50",
+    measurementId: "G-0P5SPWNNGW"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const storage = getStorage(app);
 
   useEffect(() => {
 
@@ -46,11 +62,12 @@ const EditPost = ({ existingPost, onSave }) => {
                 setCafeName(data.name || '');
                 setAddress(data.address || '');
                 setCoords(`Latitude: ${data.latitude}, Longitude: ${data.longitude}`);
-                setImages([data.imageArray] || '');
+                setImages(data.imageArray || '');
                 setRating(data.rating || '');
                 setDescription(data.description || '');
                 setInstructions(data.directions || '');
                 setThoughts(data.ambiance || '');
+                setViews(data.views || '')
             }
         } catch (error) {
             console.error('Error during getting post:', error);
@@ -120,11 +137,22 @@ const EditPost = ({ existingPost, onSave }) => {
   };
 
 
-  const handleImageUpload = (event) => {
-    const files = Array.from(event.target.files);
-    const newImages = files.map((file) => URL.createObjectURL(file));
-    setImages([...images, ...newImages]);
-
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    const uploadImage = async (file) => {
+      const storageRef = ref(storage, `images/${Date.now()}-${file.name}`);
+      await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(storageRef);
+      return downloadURL;
+    };
+  
+    try {
+      const url = await uploadImage(file);
+      setImages(url);
+      console.log("Files uploaded. Accessible URLs:", url);
+    } catch (error) {
+      console.error("Error uploading images:", error);
+    }
   };
 
 
@@ -151,9 +179,9 @@ const EditPost = ({ existingPost, onSave }) => {
     const body = {
       "name": cafeName,
       "address": address,
-      "imageArray": "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
+      "imageArray": images || "https://i.ibb.co/HHgB7Cm/cafe-Image.webp",
       "user": {
-        "id": 1
+        "id": userId
       },
       "latitude": parseFloat(latitudePart),
       "longitude": parseFloat(longitudePart),
@@ -161,7 +189,7 @@ const EditPost = ({ existingPost, onSave }) => {
       "rating": rating,
       "directions": instructions,
       "ambiance": thoughts,
-      "views": 1,
+      "views": views,
       "time": currentTimestamp
     }
 
@@ -237,14 +265,11 @@ const EditPost = ({ existingPost, onSave }) => {
 
 
         <div className="form-group">
-          <label>Upload Images</label>
-          <input type="file" accept="image/*" multiple onChange={handleImageUpload} />
+          <label>Upload Image</label>
+          <input type="file" accept="image/*" onChange={handleImageUpload} />
           <div className="image-preview">
-            {images.map((imgSrc, index) => (
-              <img key={index} src={imgSrc} alt={`Uploaded ${index + 1}`} />
-            ))}
+            {images && <img src={images} alt="Uploaded" />}
           </div>
-
         </div>
 
 

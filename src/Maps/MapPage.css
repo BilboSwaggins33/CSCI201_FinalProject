@@ -21,7 +21,7 @@
     
 }
 
-.MapPage {
+/* .MapPage {
     font-family:sans-serif;
     text-align: center;
     justify-content: start;
@@ -29,13 +29,14 @@
     background-color: #c8eaf7;
     width: 100%;
     height: 100%;
-}
+} */
 
 .TopBar {
     overflow: hidden;
     background-color: #e9e9e9;
     float: top;
     border: 1px, black, solid;
+    
 }
   
 .TopBar a {
@@ -59,7 +60,8 @@
 }
   
 .TopBar .Search {
-    float: right;
+    flex-direction: row;
+    display: flex;
 }
   
 .TopBar input[type=text] {
@@ -92,4 +94,10 @@
   
 .TopBar .Search button:hover {
     background: #ccc;
+}
+
+.Map{
+    justify-content: center;
+    align-self: center;
+    margin-top: 80px;
 }

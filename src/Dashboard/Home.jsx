@@ -46,11 +46,9 @@ const Home = () => {
           method: 'GET'
         }
         );
-
         const data = await response.json();
-
         if (response.ok) {
-          const sortedData = [...data].sort((a, b) => new Date(b.Time) - new Date(a.Time));
+          const sortedData = [...data].sort((a, b) => new Date(b.time) - new Date(a.time));
           setPostData(sortedData);
         }
       } catch (error) {
@@ -75,12 +73,25 @@ const Home = () => {
 
   function signOut() {
     localStorage.removeItem("userID");
-	localStorage.removeItem("userId");
+	  localStorage.removeItem("userId");
     localStorage.removeItem("userInfo");
     navigate('/');
   }
 
-
+  async function incrementView(postId){
+    try {
+      const response = await fetch(`http://localhost:8080/post/incrementView/${postId}`, {
+        method: 'PUT'
+      });
+      if (response.ok) {
+        console.log(`View count incremented for postId: ${postId}`);
+      } else {
+        console.error(`Failed to increment view count. Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error during getting post:', error);
+    }
+  };
 
   return (
     <div  >
@@ -256,15 +267,17 @@ const Home = () => {
                 onError={(e) => { e.target.src = 'https://i.ibb.co/HHgB7Cm/cafe-Image.webp'; }}
               />
             </div>
-        	<div 	 style={{
+        	<div 	style={{
 			          padding: '15px',
 			          width: '300px',
 			          color: 'white',
 			          display: 'flex',
-			          flexDirection: 'column', // Ensure layout is column-based
-			          justifyContent: 'space-between', // Add space between items
+			          flexDirection: 'column', 
+			          justifyContent: 'space-between', 
 			        }}>
-              <h2 style={{ margin: '8px 0', fontFamily: '"Courier New", Courier, monospace', fontWeight: 'bold', fontSize:'30px' }}>{post.name}</h2>
+              <h2 style={{ margin: '8px 0', fontFamily: '"Courier New", Courier, monospace', fontWeight: 'bold', fontSize:'30px', whiteSpace: 'nowrap',
+    overflow: 'hidden', 
+    }}>{post.name}</h2>
               <p style={{ margin: '0px 0', color: '#f0f0f0' }}>{post.address}</p>
               <p style={{ margin: '5px 0' }}>
                 <strong>Rating:</strong> {post.rating}
@@ -272,42 +285,40 @@ const Home = () => {
               <p style={{ margin: '5px 0', fontSize: '14px', color: '#dedede' }}>
                 Views: {post.views}
               </p>
-			  <div
+			        <div
 			          style={{
 			            display: 'flex',
-			            justifyContent: 'flex-end',
+                  flexDirection: 'row',
 			            alignItems: 'center',
-						marginTop: '114px',
-						marginLeft: '220px',
-						position: 'fixed'
+                  marginTop: '-40px',
+                  marginLeft: '220px',
+                  position: 'relative',
 			          }}
 			        >
-              <Link to={`/post/${post.postId}`} >
-                <button
-                  style={{
-					marginTop: '0px',
-					marginLeft: 'auto',
-	                alignItems: 'flex-end',
-	                backgroundColor: '#cee7f1',
-	                border: 'none',
-	                cursor: 'pointer', 
-	                color: '#581c14',
-					fontFamily: '"Courier New", Courier, monospace',
-					fontWeight: 'bold',
-					fontSize: '13px',
-	                padding: '7px 12px', // Adjust padding for better appearance
-	                borderRadius: '14px',
-					
-                  }}
-                  onClick={() => {
-                    // use axios to update post and increase view by one
-
-                  }}
-                >
-                  Details
-                </button>
-              </Link>
-			  </div>
+                    <Link to={`/post/${post.postId}`} >
+                      <button
+                        style={{
+                        marginTop: '0px',
+                        marginLeft: 'auto',
+                        backgroundColor: '#cee7f1',
+                        border: 'none',
+                        cursor: 'pointer', 
+                        color: '#581c14',
+                        fontFamily: '"Courier New", Courier, monospace',
+                        fontWeight: 'bold',
+                        fontSize: '13px',
+                        padding: '7px 12px', 
+                        borderRadius: '14px',
+                
+                        }}
+                        onClick={() => {
+                          incrementView(post.postId);
+                        }}
+                      >
+                        Details
+                      </button>
+                    </Link>
+              </div>
             </div>
           </div>
         ))}
