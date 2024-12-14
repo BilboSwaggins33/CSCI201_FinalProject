@@ -179,7 +179,7 @@
 }
 
 .edit-button:hover {
-  background-color: #fff;
+  background-color: #29b6f6;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -294,7 +294,7 @@
 }
 
 .post-card-prof:hover {
-  background-color: #fff;
+  background-color: #29b6f6;
 }
 
 .post-actions-prof {
