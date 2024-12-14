@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../App.css';
+import "./Profile.css";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 
 
@@ -142,59 +142,54 @@ function Profile() {
         </div>
       </div>
 
+      <div className="background-prof">
+      </div>
 
       <div className="profile-content">
 
-        <div className="profile-info">
-          <div className="profile-image-container">
-            {/*<img
-              src="path-to-default-image.jpg"
-              alt="profile pic?"
-              className="profile-image"
-            />*/}
-          </div>
-          <p className="profile-name"></p>
-          <p className="profile-username">{userInfo?.fname} {userInfo?.lname}</p>
-          <p className="profile-school">{userInfo?.university}</p>
-        </div>
-
-
         <div className="profile-details">
           <div className="user-info">
-            <h2>User Information</h2>
-            <div className="profile-row">
-              <span>First Name</span>
-              <p>{userInfo?.fname}</p>
-            </div>
+            <h2 style={{ fontFamily: 'Courier New' }}>User Information</h2>
+            <div className="profile-row-container">
+              <div className="profile-row">
+                <span>First Name</span>
+                <p>{userInfo?.fname}</p>
+              </div>
 
-            <div className="profile-row">
-              <span>Last Name</span>
-              <p>{userInfo?.lname}</p>
-            </div>
+              <div className="profile-row">
+                <span>Last Name</span>
+                <p>{userInfo?.lname}</p>
+              </div>
 
-            <div className="profile-row">
-              <span>Username</span>
-              <p>{userInfo?.username}</p>
-            </div>
+              <div className="profile-row">
+                <span>Username</span>
+                <p>{userInfo?.username}</p>
+              </div>
 
-            <div className="profile-row">
-              <span>Email</span>
-              <p>{userInfo?.email}</p>
-            </div>
+              <div className="profile-row">
+                <span>Email</span>
+                <p>{userInfo?.email}</p>
+              </div>
 
-            <div className="profile-row">
-              <span>Password</span>
-              <p>{userInfo?.password}</p>
-            </div>
+              <div className="profile-row">
+                <span>Password</span>
+                <p>{userInfo?.password}</p>
+              </div>
 
-            <div className="profile-row">
-              <span>University</span>
-              <p>{userInfo?.university}</p>
+              <div className="profile-row">
+                <span>University</span>
+                <p>{userInfo?.university}</p>
+              </div>
+
             </div>
 
 
             <button className="edit-button" onClick={handleEditClick}>Edit Profile</button>
           </div>
+        </div>
+
+        <div className="posts-section-container">
+          <h2 className="your-posts">Your Posts</h2>
           <div className="posts-section">
             {posts.map((post, idx) => (
               <PostCard
@@ -207,28 +202,46 @@ function Profile() {
             ))}
           </div>
         </div>
-        {isEditing && <Modal data={userInfo} onClose={handleCloseModal} />}
+
+
       </div>
 
+      {isEditing && <Modal data={userInfo} onClose={handleCloseModal} />}
 
-    </div>
+
+    </div >
 
   );
 }
 
 function PostCard({ postId, title, onDelete, onEdit }) {
-  return (
+  const navigate = useNavigate();
 
-    <div className="post-card">
-      <Link to={`/post/${postId}`}>
-        <p>{title}</p>
-      </Link>
-      <div className="post-actions">
-        <button onClick={onDelete}>🗑️</button>
-        <Link to={`/editpost/${postId}`}>
-          <button onClick={onEdit}>✎</button>
-        </Link>
+  const handleClick = () => {
+    navigate(`/post/${postId}`);
+  }
+
+  const handleEdit = (e) => {
+    onEdit();
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(`/editpost/${postId}`);
+  }
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onDelete();
+  }
+
+  return (
+    <div className="post-card-prof" onClick={handleClick}>
+      <p>{title}</p>
+      <div className="post-actions-prof">
+        <button onClick={handleDelete}>🗑️</button>
+        <button onClick={handleEdit}>✎</button>
       </div>
+
     </div>
 
   );
@@ -351,3 +364,5 @@ function Modal({ data, onClose }) {
 };
 
 export default Profile;
+
+
