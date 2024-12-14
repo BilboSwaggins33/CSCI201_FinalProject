@@ -9,6 +9,7 @@ const Post = () => {
     const [postData, setPostData] = useState([]);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const userInfo = localStorage.getItem('userInfo');
+	const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
         if (!userInfo) {
@@ -78,6 +79,29 @@ const Post = () => {
     return (
         <div>
             <div className="background"> </div>
+			<button
+				       className="Button"
+				       style={{
+						position: 'fixed', 
+						    top: '150px',      
+						    left: '40px',     
+						    borderRadius: '30px',
+						    padding: '3px 0px', 
+							backgroundColor: isHovered ? '#0056b3' : '#581c14',
+						    color: 'white',    
+						    border: 'none',     
+						    fontSize: '30px',
+							fontWeight: 'bold',   
+						    cursor: 'pointer',  
+						    zIndex: '1000',
+							transition: 'background-color 0.3s ease'
+				       }}
+				       onClick={() => navigate(-1)} 
+					   onMouseEnter={() => setIsHovered(true)} 
+					   onMouseLeave={() => setIsHovered(false)}
+				     >
+				       ←
+				     </button>
             <div style={{
                 marginTop: '0px',
                 width: '100%',
@@ -101,8 +125,8 @@ const Post = () => {
                 </div>
                 <div style={{
                     position: 'absolute',
-                    right: '100px',
-                    top: '40px',
+                    right: '30px',
+                    top: '34.5px',
                     gap: '10px',
                     display: 'flex',
                     flexDirection: 'row'
