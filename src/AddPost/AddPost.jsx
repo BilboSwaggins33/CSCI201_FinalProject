@@ -13,7 +13,7 @@ const AddPost = ({ existingPost, onSave }) => {
   const [address, setAddress] = useState(existingPost?.address || '');
   const [coords, setCoords] = useState(existingPost?.coords || '');
   const [currentLocation, setCurrentLocation] = useState(null);
-  const [images, setImages] = useState(existingPost?.image||'');
+  const [images, setImages] = useState(existingPost?.image || '');
   const [rating, setRating] = useState(existingPost?.rating || '');
   const [description, setDescription] = useState(existingPost?.description || '');
   const [instructions, setInstructions] = useState(existingPost?.instructions || '');
@@ -28,7 +28,7 @@ const AddPost = ({ existingPost, onSave }) => {
     appId: "1:670270706673:web:10bdd53e67856580af6a50",
     measurementId: "G-0P5SPWNNGW"
   };
-  
+
   const app = initializeApp(firebaseConfig);
   const storage = getStorage(app);
 
@@ -72,7 +72,7 @@ const AddPost = ({ existingPost, onSave }) => {
       const downloadURL = await getDownloadURL(storageRef);
       return downloadURL;
     };
-  
+
     try {
       const url = await uploadImage(file);
       setImages(url);
@@ -129,15 +129,13 @@ const AddPost = ({ existingPost, onSave }) => {
         "Content-Type": "application/json"
       }
     })
-    .catch(error => {
-      alert(error);
-    })
-    .then((data) => {
-      alert('Post saved successfully!');
-      window.location.href = "./home";
-    })
-
-
+      .catch(error => {
+        alert(error);
+      })
+      .then((data) => {
+        alert('Post saved successfully!');
+        window.location.href = "./home";
+      })
 
   };
 
@@ -162,9 +160,9 @@ const AddPost = ({ existingPost, onSave }) => {
         <div className="form-group">
           <label>Address *</label>
           <input
-          type="text"
-          onChange={(e) => setAddress(e.target.value)}
-          placeholder="Address..."
+            type="text"
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder="Address..."
           />
 
         </div>

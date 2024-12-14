@@ -10,16 +10,13 @@ const Post = () => {
     const [isLoggedIn, setLoggedIn] = useState(false);
     const userInfo = localStorage.getItem('userInfo');
 
-
-
-
     useEffect(() => {
-        if(!userInfo){
+        if (!userInfo) {
             setLoggedIn(false);
-          }
-          else{
+        }
+        else {
             setLoggedIn(true);
-          }
+        }
         let thePost;
 
         // const fetchPosts = async () => {
@@ -71,7 +68,8 @@ const Post = () => {
     }, []);
 
     function signOut() {
-        localStorage.removeItem("userID");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("userInfo");
         navigate('/');
     }
 
@@ -79,7 +77,7 @@ const Post = () => {
 
     return (
         <div>
-            <div class="background"> </div>
+            <div className="background"> </div>
             <div style={{
                 marginTop: '0px',
                 width: '100%',
@@ -90,57 +88,57 @@ const Post = () => {
                 backgroundColor: '#cee7f1',
                 boxSizing: ' border-box'
             }}>
-                <div class="typewriter" 	  style={{
-				marginLeft: '70px',
-				marginTop: '30px',
-		        fontSize: '60px', 
-		        maxWidth: 'fit-content',
-		        whiteSpace: 'nowrap',
-		        borderRight: '2px solid #581c14', 
-		        paddingRight: '10px', 
-		      }}>
-           <p>CAFE LA</p>
-         </div>
+                <div className="typewriter" style={{
+                    marginLeft: '70px',
+                    marginTop: '30px',
+                    fontSize: '60px',
+                    maxWidth: 'fit-content',
+                    whiteSpace: 'nowrap',
+                    borderRight: '2px solid #581c14',
+                    paddingRight: '10px',
+                }}>
+                    <p>CAFE LA</p>
+                </div>
                 <div style={{
                     position: 'absolute',
                     right: '100px',
                     top: '40px',
                     gap: '10px',
                     display: 'flex',
-                   flexDirection: 'row'
+                    flexDirection: 'row'
                 }}>
 
-            
-            <Link to="/home">
-            <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Home</button>
-          </Link>
-          <Link to="/map">
-                    <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white'  }}>Map</button>
-                </Link>
 
-          {isLoggedIn ? (
-            <div>
-                <Link to="/addpost">
-                    <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white'  }}>Post</button>
-                </Link>
-                    <Link to="/Profile">
-                            <button className="Button" style={{marginRight:'10px', borderRadius: '30px', color: 'white' }}>Profile</button>
+                    <Link to="/home">
+                        <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Home</button>
                     </Link>
-                    <Link to="/">
-                            <button className="Button" style = {{borderRadius: '30px', color: 'white' }} onClick= {() => signOut()}>Sign Out</button>
+                    <Link to="/map">
+                        <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Map</button>
                     </Link>
-                </div>
-                ):(
-                    <div>
-                    <Link to="/sign-in">
-                            <button className="Button" style={{marginRight:'10px', borderRadius: '30px', color: 'white' }}>Sign In</button>
-                    </Link>
-                    
-                    <Link to="/" >
-                            <button className="Button" style={{marginRight:'10px', borderRadius: '30px', color: 'white' }}>Sign Up</button>
-                    </Link>
-                </div>
-                )}
+
+                    {isLoggedIn ? (
+                        <div>
+                            <Link to="/addpost">
+                                <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Post</button>
+                            </Link>
+                            <Link to="/Profile">
+                                <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Profile</button>
+                            </Link>
+                            <Link to="/">
+                                <button className="Button" style={{ borderRadius: '30px', color: 'white' }} onClick={() => signOut()}>Sign Out</button>
+                            </Link>
+                        </div>
+                    ) : (
+                        <div>
+                            <Link to="/sign-in">
+                                <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Sign In</button>
+                            </Link>
+
+                            <Link to="/" >
+                                <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Sign Up</button>
+                            </Link>
+                        </div>
+                    )}
 
                 </div>
             </div>
