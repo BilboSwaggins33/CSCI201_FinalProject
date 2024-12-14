@@ -11,15 +11,20 @@ function Profile() {
 
   const [isEditing, setIsEditing] = useState(false);
 
+  const navigate = useNavigate();
+
+
   useEffect(() => {
 
 
     const fetchUserData = async () => {
-      // NOTE: Remove hardcoded id in the future
       const userId = localStorage.getItem('userId');
 	  console.log("id:" +userId);
       // NOTE: For now, this code fetches and stores in localStorage
       // Will remove in the future once login functionality is finished
+      try {
+        
+      
       fetch(`http://localhost:8080/user/id/${userId}`, {
         method: "GET",
       }).then((response) => response.json()).then((data) => {
@@ -32,10 +37,13 @@ function Profile() {
       fetch(`http://localhost:8080/post/all`, {
         method: "GET",
       }).then((response) => response.json()).then((data) => {
-        const userPosts = data.filter((post, idx) => (post.user.id == userId));
+        const userPosts = data.filter((post) => String(post.user.id) === String(userId));
         setPosts(userPosts);
         console.log(data);
       });
+    } catch (error) {
+      console.error('Error during getting post:', error);
+    }
 
     }
 
@@ -43,6 +51,11 @@ function Profile() {
 
 
   }, []);
+
+  function signOut() {
+    localStorage.removeItem("userID");
+    navigate('/');
+}
 
 
   const handleEditClick = () => {
@@ -55,7 +68,26 @@ function Profile() {
   };
 
   const handleDelete = (postId) => {
-    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+    const deletePost = async (postId) => {
+      try{
+        const response = await fetch(`http://localhost:8080/post/${postId}`, {
+          method: "DELETE",
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to delete post. Status: ${response.status}`);
+        }
+  
+      } catch (error) {
+        console.error('Error during getting post:', error);
+      }
+    }
+    console.log("deleting " + postId);
+
+    deletePost(postId);
+    window.location.reload();
+
+
   };
 
 
@@ -65,7 +97,53 @@ function Profile() {
   return (
 
     <div className="Profile">
-      <header className="profile-header">Profile</header>
+      <div style={{
+                marginTop: '0px',
+                width: '100%',
+                height: '120px',
+                overflow: 'hidden',
+                justifyContent: 'left',
+                alignItems: 'center',
+                backgroundColor: '#cee7f1',
+                boxSizing: ' border-box'
+            }}>
+      <div class="typewriter" 	  style={{
+				marginLeft: '70px',
+				marginTop: '30px',
+		        fontSize: '60px', 
+		        maxWidth: 'fit-content',
+		        whiteSpace: 'nowrap',
+		        borderRight: '2px solid #581c14', 
+		        paddingRight: '10px', 
+		      }}>
+           <p>Profile</p>
+         </div>
+                <div style={{
+                    position: 'absolute',
+                    right: '100px',
+                    top: '40px',
+                    gap: '10px',
+                    display: 'flex',
+                   flexDirection: 'row'
+                }}>
+
+            
+            <Link to="/home">
+            <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Home</button>
+          </Link>
+          <Link to="/map">
+              <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white'  }}>Map</button>
+          </Link>
+          <Link to="/addpost">
+              <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white'  }}>Post</button>
+           </Link>
+            <Link to="/">
+              <button className="Button" style = {{borderRadius: '30px', color: 'white' }} onClick= {() => signOut()}>Sign Out</button>
+           </Link>
+      </div>
+      </div>
+
+
       <div className="profile-content">
 
         <div className="profile-info">
@@ -114,9 +192,8 @@ function Profile() {
             <button className="edit-button" onClick={handleEditClick}>Edit Profile</button>
           </div>
           <div className="posts-section">
-            {posts.map((post, idx) => (
+            {posts.map((post) => (
               <PostCard
-                key={post.postId}
                 postId={post.postId}
                 title={post.name}
                 onDelete={() => handleDelete(post.postId)}
@@ -136,15 +213,19 @@ function Profile() {
 
 function PostCard({postId, title, onDelete, onEdit }) {
   return (
-    <Link to={`/post/${postId}`}>
+    
     <div className="post-card">
+      <Link to={`/post/${postId}`}>
       <p>{title}</p>
+      </Link>
       <div className="post-actions">
         <button onClick={onDelete}>🗑️</button>
-        <button >✎</button>
+        <Link to={`/editpost/${postId}`}>
+        <button onClick={onEdit}>✎</button>
+        </Link>
       </div>
     </div>
-    </Link>
+
   );
 }
 
