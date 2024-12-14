@@ -1,0 +1,326 @@
+.Button {
+  padding: 10px 20px;
+  border: 2px solid #581c14;
+  background-color: #581c14;
+  color: #cee7f1;
+  font-size: calc(16px + 1vmin);
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  border-radius: 10px;
+  width: 200px;
+  text-align: center;
+}
+
+.Profile {
+  height: 100%;
+  width: 100%;
+}
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: "Courier New", Courier, monospace;
+  font-size: calc(100px + 2vmin);
+  font-weight: bold;
+  color: #581c14;
+  border-right: 4px solid #581c14;
+  animation:
+    typing 3s steps(10) forwards,
+    blink 0.5s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 35%;
+  }
+}
+
+@keyframes blink {
+  from {
+    border-color: #581c14;
+  }
+  to {
+    border-color: transparent;
+  }
+}
+
+.Modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.Modal {
+  background-color: #581c14;
+  padding: 20px;
+  border-radius: 50px;
+  width: 600px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.Form-group {
+  margin-bottom: 15px;
+}
+
+.Form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 900;
+  color: #cee7f1;
+}
+
+.Form-group input {
+  width: 95%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding-left: 20px;
+}
+
+.Close-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #cee7f1;
+
+  color: #581c14;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.Button2 {
+  padding: 10px 20px;
+  margin-bottom: 17px;
+  border: 2px solid #581c14;
+  background-color: #cee7f1;
+  color: #581c14;
+  font-size: calc(16px + 1vmin);
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  border-radius: 10px;
+}
+
+.Modal h3 {
+  font-size: calc(10px + 1vmin);
+  font-style: italic;
+  color: #cee7f1;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.FieldRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.profile-image-container {
+  position: relative;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid #581c14;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #581c14;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.profile-details {
+  height: 100%;
+  width: 600px;
+  margin-right: 20px;
+}
+
+.edit-button {
+  width: 50%;
+  align-self: center;
+  background-color: lightblue;
+  color: #581c14;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  height: 60px;
+  font-size: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #fff;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.profile-content {
+  width: 100%;
+  height: 80%;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 20px;
+  display: flex;
+}
+
+.user-info {
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  background-color: #581c14;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.profile-row-container {
+  display: flex;
+  height: 50%;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-info h2 {
+  margin-top: 0;
+  font-size: 32px;
+  color: #fff;
+  text-align: center;
+}
+
+.user-info p {
+  font-size: 14px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-row {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.profile-row p {
+  font-size: 20px;
+}
+
+.user-info span {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.posts-section-container {
+  width: calc(100% - 640px);
+  height: 100%;
+}
+
+.your-posts {
+  font-size: 24px;
+  padding: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+  width: 200px;
+  text-align: center;
+  border-radius: 15px;
+  background-color: #581c14;
+
+  font-family: "Courier New", Courier, monospace;
+}
+
+.posts-section {
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.post-card-prof {
+  width: 200px;
+  height: 200px;
+  background-color: rgb(206, 231, 241);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.post-card-prof p {
+  color: #581c14;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.post-card-prof:hover {
+  background-color: #fff;
+}
+
+.post-actions-prof {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.post-actions-prof button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 3rem;
+}
+
+.post-actions-prof button:hover {
+  background-color: #eee;
+}
+
+.background-prof {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../cafelaBackground.jpg");
+  background-size: 100% 100%;
+  background-position: center;
+  z-index: -1;
+}
