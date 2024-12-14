@@ -119,8 +119,8 @@ function Profile() {
         </div>
         <div style={{
           position: 'absolute',
-          right: '100px',
-          top: '40px',
+          right: '30px',
+          top: '34.5px',
           gap: '10px',
           display: 'flex',
           flexDirection: 'row'

@@ -117,10 +117,11 @@ const Home = () => {
         }}>
           <p>CAFE LA</p>
         </div>
+		
         <div style={{
           position: 'absolute',
-          right: '100px',
-          top: '40px',
+          right: '20px',
+          top: '34.5px',
           gap: '10px',
           display: 'flex',
           flexDirection: 'row'
@@ -130,7 +131,7 @@ const Home = () => {
           </Link>
 
           {isLoggedIn ? (
-            <div>
+            <div style={{ display: 'flex', gap: '10px' }}>
               <Link to="/addpost">
                 <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Post</button>
               </Link>
@@ -142,7 +143,7 @@ const Home = () => {
               </Link>
             </div>
           ) : (
-            <div>
+            <div style={{ display: 'flex', gap: '10px' }}>
               <Link to="/sign-in">
                 <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Sign In</button>
               </Link>
