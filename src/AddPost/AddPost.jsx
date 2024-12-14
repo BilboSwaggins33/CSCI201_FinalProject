@@ -8,6 +8,8 @@ import { initializeApp } from "firebase/app";
 
 
 const AddPost = ({ existingPost, onSave }) => {
+	
+  const navigate = useNavigate();
 
   const [cafeName, setCafeName] = useState(existingPost?.cafeName || '');
   const [address, setAddress] = useState(existingPost?.address || '');
@@ -138,12 +140,32 @@ const AddPost = ({ existingPost, onSave }) => {
       })
 
   };
-
+  
 
   return (
 
     <div className="add-post-container">
-      <h2>{existingPost ? 'Edit Post' : 'Add a New Post'}</h2>
+		<button
+	       className="Button"
+	       style={{
+			position: 'fixed', 
+			    top: '15px',      
+			    left: '40px',     
+			    borderRadius: '30px',
+			    padding: '3px 0px', 
+			    backgroundColor: '#581c14',
+			    color: 'white',    
+			    border: 'none',     
+			    fontSize: '30px',
+				fontWeight: 'bold',   
+			    cursor: 'pointer',  
+			    zIndex: '1000'
+	       }}
+	       onClick={() => navigate(-1)} // Navigate back to the previous page
+	     >
+	       ←
+	     </button>
+      <h2 style = {{fontFamily: '"Courier New", Courier, monospace', fontWeight: 'bold', fontSize: '40px'}}>{existingPost ? 'Edit Post' : 'Add a New Post'}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Cafe Name *</label>
@@ -242,7 +264,7 @@ const AddPost = ({ existingPost, onSave }) => {
         </div>
 
 
-        <button type="submit">Save post</button>
+        <button type="submit" className="Button" style ={{marginLeft: '170px'}}>Save post</button>
 
       </form>
 
