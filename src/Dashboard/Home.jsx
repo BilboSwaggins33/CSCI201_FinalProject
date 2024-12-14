@@ -239,8 +239,10 @@ const Home = () => {
         alignItems: 'center',
         gap: '20px',
         marginTop: '20px',
-        height: '650px',
-        width: '800px',
+        height:'73vh',
+        width:'20vw',
+        //height: '650px',
+        //width: '800px',
         overflowY: 'scroll',
         width: '100%'
       }}>

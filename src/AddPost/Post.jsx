@@ -143,16 +143,24 @@ const Post = () => {
                 </div>
             </div>
             <div style={{
+                position: 'absolute',  
+                top: '45%',            
+                left: '50%',          
+                transform: 'translate(-50%, -50%)',
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
                 marginTop: '100px',
                 backgroundColor: '#cee7f1',
-
+                width:'80vw',
+                height:'60vh',
+                borderRadius:'15px',
+                border: '10px solid #581c14',
+               
             }}>
 
-                <div style={{ width: '500px', height: '500px', backgroundColor: '#ffffff', overflow: 'hidden', marginRight: '200px' }}>
+                <div style={{ flex: '0 0 50%', height: '100%', backgroundColor: '#ffffff', overflow: 'hidden', marginRight: '200px', borderRadius:'5px' }}>
                     <img
                         src={postData.imageArray}
                         alt={postData.name}
@@ -163,17 +171,23 @@ const Post = () => {
 
                 <div style={{
                     display: 'flex',
+                    
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    width:'50%',
+                    height:'100%',
+                    textAlign:'center',
+                    marginRight:'10vw',
+                    
                 }}>
-                    <h2 style={{ margin: '10px 0', fontSize: '50px' }}>{postData.name}</h2>
-                    <p style={{ margin: '5px 0', color: '#595959', fontSize: '25px' }}>Address: {postData.address}</p>
+                    <h2 style={{ margin: '10px 0', fontFamily: '"Courier New", Courier, monospace', fontSize: '50px' }}>{postData.name}</h2>
+                    <p style={{ margin: '5px 0', color: '#595959', fontSize: '20px' }}>Address: {postData.address}</p>
                     <p style={{ margin: '5px 0', fontSize: '18px', color: '#a3a2a2' }}>
                         Rating: {postData.rating}/10 Stars
                     </p>
                     <p style={{ margin: '5px 0', fontSize: '18px', color: '#a3a2a2' }}>
-                        Views: {postData.views} people
+                        Views: {postData.views}
                     </p>
                     <p style={{ margin: '5px 0', fontSize: '16px', color: 'black' }}>
                         Directions: {postData.directions}
