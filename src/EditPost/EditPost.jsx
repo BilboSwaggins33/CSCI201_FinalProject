@@ -6,9 +6,9 @@ import { initializeApp } from "firebase/app";
 
 
 const EditPost = ({ existingPost, onSave }) => {
-    const { postID } = useParams();
+   const { postID } = useParams();
 	const navigate = useNavigate();
-	
+	const [isHovered, setIsHovered] = useState(false);
   const [cafeName, setCafeName] = useState(existingPost?.cafeName || '');
   const [address, setAddress] = useState(existingPost?.address || '');
   const [coords, setCoords] = useState(existingPost?.coords || '');
@@ -227,15 +227,18 @@ const EditPost = ({ existingPost, onSave }) => {
 				    left: '40px',     
 				    borderRadius: '30px',
 				    padding: '3px 0px', 
-				    backgroundColor: '#581c14',
+				    backgroundColor: isHovered ? '#0056b3' : '#581c14',
 				    color: 'white',    
 				    border: 'none',     
 				    fontSize: '30px',
 					fontWeight: 'bold',   
 				    cursor: 'pointer',  
-				    zIndex: '1000'
+				    zIndex: '1000',
+					transition: 'background-color 0.3s ease'
 		       }}
-		       onClick={() => navigate(-1)} // Navigate back to the previous page
+		       onClick={() => navigate(-1)} 
+			   onMouseEnter={() => setIsHovered(true)} 
+			   onMouseLeave={() => setIsHovered(false)}
 		     >
 		       ←
 		     </button>
