@@ -58,6 +58,21 @@ function MapPage() {
     popupAnchor: [0, -45],
   });
 
+  async function incrementView(postId) {
+    try {
+      const response = await fetch(`http://localhost:8080/post/incrementView/${postId}`, {
+        method: 'PUT'
+      });
+      if (response.ok) {
+        console.log(`View count incremented for postId: ${postId}`);
+      } else {
+        console.error(`Failed to increment view count. Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error during getting post:', error);
+    }
+  };
+
   return (
     <div id="root">
       {/* Header */}
@@ -140,6 +155,9 @@ function MapPage() {
                         borderRadius: '4px',
                         padding: '3px',
 						fontSize: '13px'
+                      }}
+                      onClick={() => {
+                        incrementView(post.postId);
                       }}
                     >
                       Cafe Details
