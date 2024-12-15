@@ -42,15 +42,19 @@ function Modal({ onClose }) {
       
             if (response.ok) {
               console.log(data);
-            } 
+              navigate('/sign-in');
+            onClose();
+            }   
+            else{
+              alert("invalid register")
+            }
           } catch (error) {
             console.log('Error during getting post:', error);
           }
         };
         
         registerUser();
-        navigate('/sign-in');
-        onClose();
+        
       } else {
         alert('Please fill out the fields correctly.');
       }
