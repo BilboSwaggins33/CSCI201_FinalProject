@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
+import '../App.css';
 
 const Post = () => {
     const navigate = useNavigate();
     let { postID } = useParams();
 
     const [postData, setPostData] = useState([]);
-
+    const [isLoggedIn, setLoggedIn] = useState(false);
+    const userInfo = localStorage.getItem('userInfo');
+	const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
+        if (!userInfo) {
+            setLoggedIn(false);
+        }
+        else {
+            setLoggedIn(true);
+        }
         let thePost;
 
         // const fetchPosts = async () => {
@@ -60,7 +69,8 @@ const Post = () => {
     }, []);
 
     function signOut() {
-        localStorage.removeItem("userID");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("userInfo");
         navigate('/');
     }
 
@@ -68,51 +78,113 @@ const Post = () => {
 
     return (
         <div>
+            <div className="background"> </div>
+			<button
+				       className="Button"
+				       style={{
+						position: 'fixed', 
+						    top: '150px',      
+						    left: '40px',     
+						    borderRadius: '30px',
+						    padding: '3px 0px', 
+							backgroundColor: isHovered ? '#0056b3' : '#581c14',
+						    color: 'white',    
+						    border: 'none',     
+						    fontSize: '30px',
+							fontWeight: 'bold',   
+						    cursor: 'pointer',  
+						    zIndex: '1000',
+							transition: 'background-color 0.3s ease'
+				       }}
+				       onClick={() => navigate(-1)} 
+					   onMouseEnter={() => setIsHovered(true)} 
+					   onMouseLeave={() => setIsHovered(false)}
+				     >
+				       ←
+				     </button>
             <div style={{
                 marginTop: '0px',
                 width: '100%',
-                height: '150px',
+                height: '120px',
                 overflow: 'hidden',
                 justifyContent: 'left',
                 alignItems: 'center',
                 backgroundColor: '#cee7f1',
                 boxSizing: ' border-box'
             }}>
-                <h1 style={{
-                    marginLeft: '100px',
+                <div className="typewriter" style={{
+                    marginLeft: '70px',
+                    marginTop: '30px',
                     fontSize: '60px',
-                    color: '#581c14'
-                }}>CAFE LA </h1>
+                    maxWidth: 'fit-content',
+                    whiteSpace: 'nowrap',
+                    borderRight: '2px solid #581c14',
+                    paddingRight: '10px',
+                }}>
+                    <p>CAFE LA</p>
+                </div>
                 <div style={{
                     position: 'absolute',
-                    right: '100px',
-                    top: '50px',
+                    right: '30px',
+                    top: '34.5px',
                     gap: '10px',
+                    display: 'flex',
+                    flexDirection: 'row'
                 }}>
+
+
+                    <Link to="/home">
+                        <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Home</button>
+                    </Link>
                     <Link to="/map">
-                        <button className="Button" style={{ marginRight: '10px' }}>Map</button>
+                        <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Map</button>
                     </Link>
-                    <Link to="/addpost">
-                        <button className="Button" style={{ marginRight: '10px' }}>Post</button>
-                    </Link>
-                    <Link to="/Profile">
-                        <button className="Button" style={{ marginRight: '10px' }}>Profile</button>
-                    </Link>
-                    <Link to="/">
-                        <button className="Button" onClick={() => signOut()}>Sign Out</button>
-                    </Link>
+
+                    {isLoggedIn ? (
+                        <div>
+                            <Link to="/addpost">
+                                <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Post</button>
+                            </Link>
+                            <Link to="/Profile">
+                                <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Profile</button>
+                            </Link>
+                            <Link to="/">
+                                <button className="Button" style={{ borderRadius: '30px', color: 'white' }} onClick={() => signOut()}>Sign Out</button>
+                            </Link>
+                        </div>
+                    ) : (
+                        <div>
+                            <Link to="/sign-in">
+                                <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Sign In</button>
+                            </Link>
+
+                            <Link to="/" >
+                                <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Sign Up</button>
+                            </Link>
+                        </div>
+                    )}
 
                 </div>
             </div>
             <div style={{
+                position: 'absolute',  
+                top: '45%',            
+                left: '50%',          
+                transform: 'translate(-50%, -50%)',
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginTop: '100px'
+                marginTop: '100px',
+                backgroundColor: '#cee7f1',
+                width:'80vw',
+                height:'60vh',
+                borderRadius:'15px',
+                border: '10px solid #581c14',
+               
             }}>
 
-                <div style={{ width: '500px', height: '500px', backgroundColor: '#ffffff', overflow: 'hidden', marginRight: '200px' }}>
+                <div style={{ flex: '0 0 50%', height: '100%', backgroundColor: '#ffffff', overflow: 'hidden', marginRight: '200px', borderRadius:'5px' }}>
                     <img
                         src={postData.imageArray}
                         alt={postData.name}
@@ -123,17 +195,26 @@ const Post = () => {
 
                 <div style={{
                     display: 'flex',
+                    
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    width:'50%',
+                    height:'100%',
+                    textAlign:'center',
+                    marginRight:'10vw',
+                    
                 }}>
-                    <h2 style={{ margin: '10px 0', fontSize: '50px' }}>{postData.name}</h2>
-                    <p style={{ margin: '5px 0', color: '#595959', fontSize: '25px' }}>Address: {postData.address}</p>
+                    <h2 style={{ margin: '10px 0', fontFamily: '"Courier New", Courier, monospace', fontSize: '50px' }}>{postData.name}</h2>
+                    <p style={{ margin: '5px 0', color: '#595959', fontSize: '20px' }}>Address: {postData.address}</p>
                     <p style={{ margin: '5px 0', fontSize: '18px', color: '#a3a2a2' }}>
-                        Rating: {postData.rating}/5 Stars
+                        Rating: {postData.rating}/10 Stars
                     </p>
                     <p style={{ margin: '5px 0', fontSize: '18px', color: '#a3a2a2' }}>
-                        Views: {postData.views} people
+                        Views: {postData.views}
+                    </p>
+                    <p style={{ margin: '5px 0', fontSize: '16px', color: 'black' }}>
+                        Directions: {postData.directions}
                     </p>
                     <p style={{ margin: '5px 0', fontSize: '16px', color: 'black' }}>
                         Description: {postData.description}

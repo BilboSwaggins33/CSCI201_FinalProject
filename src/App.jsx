@@ -25,7 +25,7 @@ function App() {
     setIsSigningUp(false);
   };
 
-  
+
 
   return (
 
@@ -38,7 +38,7 @@ function App() {
             element={
               <>
                 <header className="App-header">
-                  <div class="typewriter">
+                  <div className="typewriter">
                     <p>CAFE LA</p>
                   </div>
                 </header>
@@ -46,18 +46,18 @@ function App() {
                   <div className="main">
                     <div className="rowButton">
                       <Link to="/sign-in">
-                        <button className="Button" id="sign">Sign In</button>
+                        <button className="Button"  style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }} id="sign">Sign In</button>
                       </Link>
-                      <button className="Button" id="up" onClick={handleSignUpClick}>
+                      <button className="Button"  style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }} id="up" onClick={handleSignUpClick}>
                         Sign Up
                       </button>
-					  <Link to="/home">
-                        <button className="Button" id="guest">Guest Access</button>
+                      <Link to="/home">
+                        <button className="Button"  style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }} id="guest">Guest Access</button>
                       </Link>
                     </div>
-                    
+
                   </div>
-                  </div>
+                </div>
                 {isSigningUp && <Moda onClose={handleCloseModal} />}
               </>
             }
@@ -74,7 +74,7 @@ function App() {
 
         </Routes>
       </div>
-      </Router>
+    </Router>
 
   );
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import '../App.css';
 //import axios from 'axios';
-
+import { Grid } from '@mui/material';
 
 const Home = () => {
   const [postData, setPostData] = useState([]);
@@ -13,10 +13,10 @@ const Home = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    if(!userInfo){
+    if (!userInfo) {
       setLoggedIn(false);
     }
-    else{
+    else {
       setLoggedIn(true);
     }
 
@@ -46,11 +46,9 @@ const Home = () => {
           method: 'GET'
         }
         );
-
         const data = await response.json();
-
         if (response.ok) {
-          const sortedData = [...data].sort((a, b) => new Date(b.Time) - new Date(a.Time));
+          const sortedData = [...data].sort((a, b) => new Date(b.time) - new Date(a.time));
           setPostData(sortedData);
         }
       } catch (error) {
@@ -74,17 +72,30 @@ const Home = () => {
   }
 
   function signOut() {
-    localStorage.removeItem("userID");
-	localStorage.removeItem("userId");
+    localStorage.removeItem("userId");
     localStorage.removeItem("userInfo");
     navigate('/');
   }
 
-
+  async function incrementView(postId) {
+    try {
+      const response = await fetch(`http://localhost:8080/post/incrementView/${postId}`, {
+        method: 'PUT'
+      });
+      if (response.ok) {
+        console.log(`View count incremented for postId: ${postId}`);
+      } else {
+        console.error(`Failed to increment view count. Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error during getting post:', error);
+    }
+  };
 
   return (
-    <div  >
-		<div class="background"> </div>
+    <Grid>
+    <div>
+      <div className="background"> </div>
       <div style={{
         marginTop: '0px',
         width: '100%',
@@ -95,55 +106,56 @@ const Home = () => {
         backgroundColor: '#cee7f1',
         boxSizing: ' border-box'
       }}>
+
+        <div className="typewriter" style={{
+          marginLeft: '70px',
+          marginTop: '30px',
+          fontSize: '60px',
+          maxWidth: 'fit-content',
+          whiteSpace: 'nowrap',
+          borderRight: '2px solid #581c14',
+          paddingRight: '10px',
+        }}>
+          <p>CAFE LA</p>
+        </div>
 		
-		<div class="typewriter" 	  style={{
-				marginLeft: '70px',
-				marginTop: '30px',
-		        fontSize: '60px', 
-		        maxWidth: 'fit-content',
-		        whiteSpace: 'nowrap',
-		        borderRight: '2px solid #581c14', 
-		        paddingRight: '10px', 
-		      }}>
-           <p>CAFE LA</p>
-         </div>
         <div style={{
-            position: 'absolute',
-             right: '100px',
-             top: '40px',
-             gap: '10px',
-             display: 'flex',
-			flexDirection: 'row'
+          position: 'absolute',
+          right: '20px',
+          top: '34.5px',
+          gap: '10px',
+          display: 'flex',
+          flexDirection: 'row'
         }}>
           <Link to="/map">
             <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Map</button>
           </Link>
 
           {isLoggedIn ? (
-            <div>
-          <Link to="/addpost">
-            <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white'  }}>Post</button>
-          </Link>
-            <Link to="/Profile">
-                      <button className="Button" style={{marginRight:'10px', borderRadius: '30px', color: 'white' }}>Profile</button>
-            </Link>
-            <Link to="/">
-                      <button className="Button" style = {{borderRadius: '30px', color: 'white' }} onClick= {() => signOut()}>Sign Out</button>
-            </Link>
-          </div>
-          ):(
-            <div>
-            <Link to="/sign-in">
-                    <button className="Button" style={{marginRight:'10px', borderRadius: '30px', color: 'white' }}>Sign In</button>
-            </Link>
-            
-            <Link to="/" >
-                      <button className="Button" style={{marginRight:'10px', borderRadius: '30px', color: 'white' }}>Sign Up</button>
-            </Link>
-          </div>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <Link to="/addpost">
+                <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Post</button>
+              </Link>
+              <Link to="/Profile">
+                <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Profile</button>
+              </Link>
+              <Link to="/">
+                <button className="Button" style={{ borderRadius: '30px', color: 'white' }} onClick={() => signOut()}>Sign Out</button>
+              </Link>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <Link to="/sign-in">
+                <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Sign In</button>
+              </Link>
+
+              <Link to="/" >
+                <button className="Button" style={{ marginRight: '10px', borderRadius: '30px', color: 'white' }}>Sign Up</button>
+              </Link>
+            </div>
           )}
-          
-          
+
+
         </div>
 
 
@@ -161,65 +173,65 @@ const Home = () => {
         width: '100%'
 
       }}>
-	  <div
-	    style={{
-	      display: 'flex', // Makes children elements appear in the same row
-	      alignItems: 'center', // Align items vertically
-	      gap: '10px', // Add space between elements
-	    }}
-	  >
-	  		<p style={{ margin: '5px 0', fontSize: '17px', color: 'white', fontFamily: '"Courier New", Courier, monospace', fontWeight: 'bold'}}>
-	           Sort By: 
-	         </p>
-	         <select
-	           style={{
-	             border: '1px solid #ccc',
-	             borderRadius: '5px',
-	             padding: '6px 20px',
-	             backgroundColor: '#ffffff',
-	             color: '#555',
-	             fontSize: '14px',
-	             fontFamily: '"Courier New", Courier, monospace',
-				 color: 'black',
-	             cursor: 'pointer',
-	           }}
-	           onChange={(e) => {
-	             console.log("Before sorting:", postData);
-	             const selectedValue = e.target.value;
-	             if (selectedValue === "AZ") {
-	               const sortedPosts = [...postData].sort((a, b) => a.name.localeCompare(b.name));
-	               console.log("After sorting:", sortedPosts);
-	               setPostData(sortedPosts);
-	             } else if (selectedValue === "ZA") {
-	               const sortedPosts = [...postData].sort((a, b) => b.name.localeCompare(a.name));
-	               console.log("After sorting:", sortedPosts);
-	               setPostData(sortedPosts);
-	             }
-	             else if (selectedValue === "recentPost") {
-	               const sortedPosts = [...postData].sort((a, b) => new Date(b.time) - new Date(a.time));
-	               console.log("After sorting:", sortedPosts);
-	               setPostData(sortedPosts);
-	             }
-	             else if (selectedValue === "highRated") {
-	               const sortedPosts = [...postData].sort((a, b) => b.rating - a.rating);
-	               console.log("After sorting:", sortedPosts);
-	               setPostData(sortedPosts);
-	             }
-	             else if (selectedValue === "popular") {
-	               const sortedPosts = [...postData].sort((a, b) => b.views - a.views);
-	               console.log("After sorting:", sortedPosts);
-	               setPostData(sortedPosts);
-	             }
-	           }}
-	         >
-	           <option value="recentPost">Recently Posted</option>
-	           <option value="AZ">Alphabetical A-Z</option>
-	           <option value="ZA">Alphabetical Z-A</option>
-	           <option value="highRated">Highest Rated</option>
-	           <option value="popular">Popularity</option>
-	         </select>
-	  </div>
-       
+        <div
+          style={{
+            display: 'flex', // Makes children elements appear in the same row
+            alignItems: 'center', // Align items vertically
+            gap: '10px', // Add space between elements
+          }}
+        >
+          <p style={{ margin: '5px 0', fontSize: '17px', color: 'white', fontFamily: '"Courier New", Courier, monospace', fontWeight: 'bold' }}>
+            Sort By:
+          </p>
+          <select
+            style={{
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              padding: '6px 20px',
+              backgroundColor: '#ffffff',
+              color: '#555',
+              fontSize: '14px',
+              fontFamily: '"Courier New", Courier, monospace',
+              color: 'black',
+              cursor: 'pointer',
+            }}
+            onChange={(e) => {
+              console.log("Before sorting:", postData);
+              const selectedValue = e.target.value;
+              if (selectedValue === "AZ") {
+                const sortedPosts = [...postData].sort((a, b) => a.name.localeCompare(b.name));
+                console.log("After sorting:", sortedPosts);
+                setPostData(sortedPosts);
+              } else if (selectedValue === "ZA") {
+                const sortedPosts = [...postData].sort((a, b) => b.name.localeCompare(a.name));
+                console.log("After sorting:", sortedPosts);
+                setPostData(sortedPosts);
+              }
+              else if (selectedValue === "recentPost") {
+                const sortedPosts = [...postData].sort((a, b) => new Date(b.time) - new Date(a.time));
+                console.log("After sorting:", sortedPosts);
+                setPostData(sortedPosts);
+              }
+              else if (selectedValue === "highRated") {
+                const sortedPosts = [...postData].sort((a, b) => b.rating - a.rating);
+                console.log("After sorting:", sortedPosts);
+                setPostData(sortedPosts);
+              }
+              else if (selectedValue === "popular") {
+                const sortedPosts = [...postData].sort((a, b) => b.views - a.views);
+                console.log("After sorting:", sortedPosts);
+                setPostData(sortedPosts);
+              }
+            }}
+          >
+            <option value="recentPost">Recently Posted</option>
+            <option value="AZ">Alphabetical A-Z</option>
+            <option value="ZA">Alphabetical Z-A</option>
+            <option value="highRated">Highest Rated</option>
+            <option value="popular">Popularity</option>
+          </select>
+        </div>
+
       </div>
 
       <div style={{
@@ -228,8 +240,10 @@ const Home = () => {
         alignItems: 'center',
         gap: '20px',
         marginTop: '20px',
-        height: '650px',
-        width: '800px',
+        height:'73vh',
+        width:'20vw',
+        //height: '650px',
+        //width: '800px',
         overflowY: 'scroll',
         width: '100%'
       }}>
@@ -256,15 +270,18 @@ const Home = () => {
                 onError={(e) => { e.target.src = 'https://i.ibb.co/HHgB7Cm/cafe-Image.webp'; }}
               />
             </div>
-        	<div 	 style={{
-			          padding: '15px',
-			          width: '300px',
-			          color: 'white',
-			          display: 'flex',
-			          flexDirection: 'column', // Ensure layout is column-based
-			          justifyContent: 'space-between', // Add space between items
-			        }}>
-              <h2 style={{ margin: '8px 0', fontFamily: '"Courier New", Courier, monospace', fontWeight: 'bold', fontSize:'30px' }}>{post.name}</h2>
+            <div style={{
+              padding: '15px',
+              width: '300px',
+              color: 'white',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}>
+              <h2 style={{
+                margin: '8px 0', fontFamily: '"Courier New", Courier, monospace', fontWeight: 'bold', fontSize: '30px', whiteSpace: 'nowrap',
+                overflow: 'hidden',
+              }}>{post.name}</h2>
               <p style={{ margin: '0px 0', color: '#f0f0f0' }}>{post.address}</p>
               <p style={{ margin: '5px 0' }}>
                 <strong>Rating:</strong> {post.rating}
@@ -272,47 +289,46 @@ const Home = () => {
               <p style={{ margin: '5px 0', fontSize: '14px', color: '#dedede' }}>
                 Views: {post.views}
               </p>
-			  <div
-			          style={{
-			            display: 'flex',
-			            justifyContent: 'flex-end',
-			            alignItems: 'center',
-						marginTop: '114px',
-						marginLeft: '220px',
-						position: 'fixed'
-			          }}
-			        >
-              <Link to={`/post/${post.postId}`} >
-                <button
-                  style={{
-					marginTop: '0px',
-					marginLeft: 'auto',
-	                alignItems: 'flex-end',
-	                backgroundColor: '#cee7f1',
-	                border: 'none',
-	                cursor: 'pointer', 
-	                color: '#581c14',
-					fontFamily: '"Courier New", Courier, monospace',
-					fontWeight: 'bold',
-					fontSize: '13px',
-	                padding: '7px 12px', // Adjust padding for better appearance
-	                borderRadius: '14px',
-					
-                  }}
-                  onClick={() => {
-                    // use axios to update post and increase view by one
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginTop: '-40px',
+                  marginLeft: '220px',
+                  position: 'relative',
+                }}
+              >
+                <Link to={`/post/${post.postId}`} >
+                  <button
+                    style={{
+                      marginTop: '0px',
+                      marginLeft: 'auto',
+                      backgroundColor: '#cee7f1',
+                      border: 'none',
+                      cursor: 'pointer',
+                      color: '#581c14',
+                      fontFamily: '"Courier New", Courier, monospace',
+                      fontWeight: 'bold',
+                      fontSize: '13px',
+                      padding: '7px 12px',
+                      borderRadius: '14px',
 
-                  }}
-                >
-                  Details
-                </button>
-              </Link>
-			  </div>
+                    }}
+                    onClick={() => {
+                      incrementView(post.postId);
+                    }}
+                  >
+                    Details
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         ))}
       </div>
     </div>
+    </Grid>
   );
 };
 
